@@ -13,6 +13,16 @@ spring:
   resource:
     static-locations: classpath:/static/,classpath:/public/
 
+  datasource:
+    dynamic:
+      primary: master
+      datasource:
+        master:
+          driver-class-name: org.postgresql.Driver
+          url: jdbc:postgresql://10.0.15.28:5432/smartwater_ai
+          username: postgres
+          password: Data@2025
+
   cloud:
     nacos:
       discovery:

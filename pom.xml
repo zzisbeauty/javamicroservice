@@ -24,6 +24,8 @@
         <!--公共服务 -->
         <module>common-core</module>
         <module>dubbo-facade</module>
+        <module>test</module>
+        <module>untitled1111</module>
     </modules>
 
     <properties>
