@@ -18,7 +18,7 @@ import java.util.Map;
 public interface I${entityName}Service extends IService<${entityName}> {
 
     /**
-     * ÒÔÏÂ·½·¨ĞèÒªÖ§³ÖÖ±½Ó·ÃÎÊÎÄ¼şÁ÷£¨Íø¹ØÔÊĞí£©
+     * ä»¥ä¸‹æ–¹æ³•éœ€è¦æ”¯æŒç›´æ¥è®¿é—®æ–‡ä»¶æµï¼ˆç½‘å…³å…è®¸ï¼‰
      *
      * @param outputStream
      * @param paramMap
@@ -27,7 +27,7 @@ public interface I${entityName}Service extends IService<${entityName}> {
     void exportData(ServletOutputStream outputStream, Map paramMap, ${entityName} ${entityName?uncap_first});
 
     /**
-     * Èç¹û²»Ö§³ÖÖ±½Ó»ñÈ¡ÎÄ¼şÁ÷£¬×ªÎªbase64ºó·µ»ØÇ°¶Ë
+     * å¦‚æœä¸æ”¯æŒç›´æ¥è·å–æ–‡ä»¶æµï¼Œè½¬ä¸ºbase64åè¿”å›å‰ç«¯
      *
      * @param paramMap
      * @param ${entityName?uncap_first}
@@ -36,7 +36,7 @@ public interface I${entityName}Service extends IService<${entityName}> {
     String exportDataToBase64(Map paramMap, ${entityName} ${entityName?uncap_first});
 
     /**
-     * Í¨¹ıexcelµ¼ÈëÊı¾İ
+     * é€šè¿‡excelå¯¼å…¥æ•°æ®
      *
      * @param file
      * @return
@@ -44,7 +44,7 @@ public interface I${entityName}Service extends IService<${entityName}> {
     Result<?> importData(MultipartFile file);
 
     /**
-     * ÏÂÔØµ¼ÈëÄ£°å
+     * ä¸‹è½½å¯¼å…¥æ¨¡æ¿
      * @return
      */
     String getImportTemplate();

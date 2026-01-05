@@ -45,7 +45,7 @@ public class ${entityName}Controller extends BaseController<${entityName}, I${en
 	private I${entityName}Service ${entityName?uncap_first}Service;
 
 	/**
-	 * ·ÖÒ³ÁĞ±í²éÑ¯
+	 * åˆ†é¡µåˆ—è¡¨æŸ¥è¯¢
 	 *
 	 * @param ${entityName?uncap_first}
 	 * @param pageNo
@@ -53,8 +53,8 @@ public class ${entityName}Controller extends BaseController<${entityName}, I${en
 	 * @param req
 	 * @return
 	 */
-	@AutoLog(value = "${tableVo.ftlDescription}-·ÖÒ³ÁĞ±í²éÑ¯")
-	@Operation(summary="${tableVo.ftlDescription}-·ÖÒ³ÁĞ±í²éÑ¯")
+	@AutoLog(value = "${tableVo.ftlDescription}-åˆ†é¡µåˆ—è¡¨æŸ¥è¯¢")
+	@Operation(summary="${tableVo.ftlDescription}-åˆ†é¡µåˆ—è¡¨æŸ¥è¯¢")
 	@RequestMapping(value = "/list", method = {RequestMethod.POST,RequestMethod.GET})
 	public Result<?> queryPageList(${entityName} ${entityName?uncap_first},
 								   @RequestParam(name="pageNo", defaultValue="1") Integer pageNo,
@@ -67,86 +67,86 @@ public class ${entityName}Controller extends BaseController<${entityName}, I${en
 	}
 
 	/**
-	 * Ìí¼Ó
+	 * æ·»åŠ 
 	 *
 	 * @param ${entityName?uncap_first}
 	 * @return
 	 */
-	@AutoLog(value = "${tableVo.ftlDescription}-Ìí¼Ó")
-	@Operation(summary="${tableVo.ftlDescription}-Ìí¼Ó")
+	@AutoLog(value = "${tableVo.ftlDescription}-æ·»åŠ ")
+	@Operation(summary="${tableVo.ftlDescription}-æ·»åŠ ")
 	@PostMapping(value = "/add")
 	public Result<?> add(@RequestBody ${entityName} ${entityName?uncap_first}) {
 		Boolean flag = ${entityName?uncap_first}Service.save(${entityName?uncap_first});
 		if(flag){
-		    return Result.OK("Ìí¼Ó³É¹¦£¡");
+		    return Result.OK("æ·»åŠ æˆåŠŸï¼");
 		}else{
-		    return Result.OK("Ìí¼ÓÊ§°Ü£¡");
+		    return Result.OK("æ·»åŠ å¤±è´¥ï¼");
 		}
 
 	}
 
 	/**
-	 * ±à¼­
+	 * ç¼–è¾‘
 	 *
 	 * @param ${entityName?uncap_first}
 	 * @return
 	 */
-	@AutoLog(value = "${tableVo.ftlDescription}-±à¼­")
-	@Operation(summary="${tableVo.ftlDescription}-±à¼­")
+	@AutoLog(value = "${tableVo.ftlDescription}-ç¼–è¾‘")
+	@Operation(summary="${tableVo.ftlDescription}-ç¼–è¾‘")
 	@RequestMapping(value = "/edit", method = {RequestMethod.POST})
 	public Result<?> edit(@RequestBody ${entityName} ${entityName?uncap_first}) {
 		Boolean flag = ${entityName?uncap_first}Service.updateById(${entityName?uncap_first});
 		if(flag){
-            return Result.OK("±à¼­³É¹¦£¡");
+            return Result.OK("ç¼–è¾‘æˆåŠŸï¼");
         }else{
-            return Result.OK("±à¼­Ê§°Ü£¡");
+            return Result.OK("ç¼–è¾‘å¤±è´¥ï¼");
         }
 	}
 
 	/**
-	 * Í¨¹ıidÉ¾³ı
+	 * é€šè¿‡idåˆ é™¤
 	 *
 	 * @param id
 	 * @return
 	 */
-    @AutoLog(value = "${tableVo.ftlDescription}-Í¨¹ıidÉ¾³ı")
-	@Operation(summary="${tableVo.ftlDescription}-Í¨¹ıidÉ¾³ı")
+    @AutoLog(value = "${tableVo.ftlDescription}-é€šè¿‡idåˆ é™¤")
+	@Operation(summary="${tableVo.ftlDescription}-é€šè¿‡idåˆ é™¤")
 	@RequestMapping(value = "/delete", method = {RequestMethod.POST})
 	public Result<?> delete(@RequestParam(name="id",required=true) String id) {
 		Boolean flag = ${entityName?uncap_first}Service.removeById(id);
 		if(flag){
-            return Result.OK("É¾³ı³É¹¦£¡");
+            return Result.OK("åˆ é™¤æˆåŠŸï¼");
         }else{
-            return Result.OK("É¾³ıÊ§°Ü£¡");
+            return Result.OK("åˆ é™¤å¤±è´¥ï¼");
         }
 	}
 
 	/**
-	 * ÅúÁ¿É¾³ı
+	 * æ‰¹é‡åˆ é™¤
 	 *
 	 * @param ids
 	 * @return
 	 */
-	@AutoLog(value = "${tableVo.ftlDescription}-ÅúÁ¿É¾³ı")
-	@Operation(summary="${tableVo.ftlDescription}-ÅúÁ¿É¾³ı")
+	@AutoLog(value = "${tableVo.ftlDescription}-æ‰¹é‡åˆ é™¤")
+	@Operation(summary="${tableVo.ftlDescription}-æ‰¹é‡åˆ é™¤")
 	@RequestMapping(value = "/deleteBatch", method = {RequestMethod.POST})
 	public Result<?> deleteBatch(@RequestParam(name="ids",required=true) String ids) {
 		Boolean flag = this.${entityName?uncap_first}Service.removeByIds(Arrays.asList(ids.split(",")));
 		if(flag){
-            return Result.OK("ÅúÁ¿É¾³ı³É¹¦£¡");
+            return Result.OK("æ‰¹é‡åˆ é™¤æˆåŠŸï¼");
         }else{
-            return Result.OK("ÅúÁ¿É¾³ıÊ§°Ü£¡");
+            return Result.OK("æ‰¹é‡åˆ é™¤å¤±è´¥ï¼");
         }
 	}
 
 	/**
-	 * Í¨¹ıid²éÑ¯
+	 * é€šè¿‡idæŸ¥è¯¢
 	 *
 	 * @param id
 	 * @return
 	 */
-	@AutoLog(value = "${tableVo.ftlDescription}-Í¨¹ıid²éÑ¯")
-	@Operation(summary="${tableVo.ftlDescription}-Í¨¹ıid²éÑ¯")
+	@AutoLog(value = "${tableVo.ftlDescription}-é€šè¿‡idæŸ¥è¯¢")
+	@Operation(summary="${tableVo.ftlDescription}-é€šè¿‡idæŸ¥è¯¢")
 	@GetMapping(value = "/queryById")
 	public Result<?> queryById(@RequestParam(name="id",required=true) String id) {
 		${entityName} ${entityName?uncap_first} = ${entityName?uncap_first}Service.getById(id);
@@ -154,79 +154,79 @@ public class ${entityName}Controller extends BaseController<${entityName}, I${en
 	}
 
 	 /**
-	  * Ö§³ÖÎÄ¼şÁ÷µÄÇé¿öÏÂÖ±½ÓÊ¹ÓÃ¸Ã·½Ê½
-	  * ÎÄ¼şÁ÷
+	  * æ”¯æŒæ–‡ä»¶æµçš„æƒ…å†µä¸‹ç›´æ¥ä½¿ç”¨è¯¥æ–¹å¼
+	  * æ–‡ä»¶æµ
 	  *
 	  * @param request
 	  * @param response
 	  * @param ${entityName?uncap_first}
 	  * @param fileName
 	  */
-	 @AutoLog(value = "${tableVo.ftlDescription}-ÎÄ¼şÁ÷µ¼³ö")
-	 @Operation(summary="${tableVo.ftlDescription}-ÎÄ¼şÁ÷µ¼³ö")
+	 @AutoLog(value = "${tableVo.ftlDescription}-æ–‡ä»¶æµå¯¼å‡º")
+	 @Operation(summary="${tableVo.ftlDescription}-æ–‡ä»¶æµå¯¼å‡º")
 	 @RequestMapping(value = "/exportXls", method = {RequestMethod.GET})
 	 public Result<?> exportXls(HttpServletRequest request, HttpServletResponse response, ${entityName} ${entityName?uncap_first}, String fileName){
 		 try {
-			 // ÕâÀï×¢Òâ Ê¹ÓÃswagger »áµ¼ÖÂ¸÷ÖÖÎÊÌâ£¬ÇëÖ±½ÓÓÃä¯ÀÀÆ÷»òÕßÓÃpostman
+			 // è¿™é‡Œæ³¨æ„ ä½¿ç”¨swagger ä¼šå¯¼è‡´å„ç§é—®é¢˜ï¼Œè¯·ç›´æ¥ç”¨æµè§ˆå™¨æˆ–è€…ç”¨postman
 			 response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
 			 response.setCharacterEncoding("utf-8");
-			 // URLEncoder.encode¿ÉÒÔ·ÀÖ¹ÖĞÎÄÂÒÂë
+			 // URLEncoder.encodeå¯ä»¥é˜²æ­¢ä¸­æ–‡ä¹±ç 
 			 fileName = URLEncoder.encode(Optional.ofNullable(fileName).orElse("${tableVo.ftlDescription}"), "UTF-8").replaceAll("\\+", "%20");
 			 response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName + ".xlsx");
 			 ${entityName?uncap_first}Service.exportData(response.getOutputStream(), request.getParameterMap(), ${entityName?uncap_first});
-			 return Result.OK("µ¼³ö³É¹¦");
+			 return Result.OK("å¯¼å‡ºæˆåŠŸ");
 		 } catch (IOException e) {
-			 log.error("µ¼³öExcelÒì³£{}", e.getMessage());
-			 return Result.error("µ¼³öÊ§°Ü",e.getMessage());
+			 log.error("å¯¼å‡ºExcelå¼‚å¸¸{}", e.getMessage());
+			 return Result.error("å¯¼å‡ºå¤±è´¥",e.getMessage());
 		 }
 	 }
 
 	 /**
-	  * ²»Ö§³ÖÎÄ¼şÁ÷µÄÇé¿öÏÂÖ±½ÓÊ¹ÓÃ¸Ã·½Ê½
-	  * base64ÎÄ¼ş
+	  * ä¸æ”¯æŒæ–‡ä»¶æµçš„æƒ…å†µä¸‹ç›´æ¥ä½¿ç”¨è¯¥æ–¹å¼
+	  * base64æ–‡ä»¶
 	  *
 	  * @param request
 	  * @param ${entityName?uncap_first}
 	  */
-	 @AutoLog(value = "${tableVo.ftlDescription}-base64·½Ê½µ¼³ö")
-	 @Operation(summary="${tableVo.ftlDescription}-base64·½Ê½µ¼³ö")
+	 @AutoLog(value = "${tableVo.ftlDescription}-base64æ–¹å¼å¯¼å‡º")
+	 @Operation(summary="${tableVo.ftlDescription}-base64æ–¹å¼å¯¼å‡º")
 	 @RequestMapping(value = "/exportXlsToBase64", method = {RequestMethod.GET})
 	 public Result<?> exportXlsToBase64(HttpServletRequest request, ${entityName} ${entityName?uncap_first}) {
 		 try {
 			 String data = ${entityName?uncap_first}Service.exportDataToBase64(request.getParameterMap(), ${entityName?uncap_first});
-			 return Result.OK("µ¼³ö³É¹¦",data);
+			 return Result.OK("å¯¼å‡ºæˆåŠŸ",data);
 		 } catch (Exception e) {
-			 log.error("µ¼³öExcelÒì³£{}", e.getMessage());
-			 return Result.error("µ¼³öÊ§°Ü", e.getMessage());
+			 log.error("å¯¼å‡ºExcelå¼‚å¸¸{}", e.getMessage());
+			 return Result.error("å¯¼å‡ºå¤±è´¥", e.getMessage());
 		 }
 	 }
 
 	 /**
-	  * Í¨¹ıexcelµ¼ÈëÊı¾İ
+	  * é€šè¿‡excelå¯¼å…¥æ•°æ®
 	  *
 	  * @param file
 	  * @return
 	  */
-	 @AutoLog(value = "${tableVo.ftlDescription}-excelÎÄ¼şµ¼Èë")
-	 @Operation(summary="${tableVo.ftlDescription}-excelÎÄ¼şµ¼Èë")
+	 @AutoLog(value = "${tableVo.ftlDescription}-excelæ–‡ä»¶å¯¼å…¥")
+	 @Operation(summary="${tableVo.ftlDescription}-excelæ–‡ä»¶å¯¼å…¥")
 	 @RequestMapping(value = "/importExcel", method = RequestMethod.POST)
 	 public Result<?> importExcel(@RequestParam MultipartFile file) {
 		 return ${entityName?uncap_first}Service.importData(file);
 	 }
 
 	 /**
-	  * ÏÂÔØµ¼ÈëÄ£°å
+	  * ä¸‹è½½å¯¼å…¥æ¨¡æ¿
 	  * @return
 	  */
-	 @Operation(summary="${tableVo.ftlDescription}-ÏÂÔØµ¼ÈëÄ£°å")
+	 @Operation(summary="${tableVo.ftlDescription}-ä¸‹è½½å¯¼å…¥æ¨¡æ¿")
 	 @RequestMapping(value = "/getImportTemplate", method = RequestMethod.GET)
 	 public Result<?> getImportTemplate() {
 		 try {
 			 String data = ${entityName?uncap_first}Service.getImportTemplate();
-			 return Result.OK("µ¼³öÄ£°å³É¹¦",data);
+			 return Result.OK("å¯¼å‡ºæ¨¡æ¿æˆåŠŸ",data);
 		 } catch (Exception e) {
-			 log.error("µ¼³öExcelÒì³£{}", e.getMessage());
-			 return Result.error("µ¼³öÄ£°åÊ§°Ü", e.getMessage());
+			 log.error("å¯¼å‡ºExcelå¼‚å¸¸{}", e.getMessage());
+			 return Result.error("å¯¼å‡ºæ¨¡æ¿å¤±è´¥", e.getMessage());
 		 }
 	 }
 

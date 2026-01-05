@@ -15,14 +15,19 @@ import org.springframework.context.annotation.Configuration;
  * @Since version-1.0
  */
 @Configuration
-@MapperScan(value={"com.hanwei.**.mapper*"})  // 扫描所有 mapper 接口
+@MapperScan(value={"com.hanwei.**.mapper*"})
 public class MybatisPlusConfig {
+
     @Bean
     public MybatisPlusInterceptor mybatisPlusInterceptor() {
         MybatisPlusInterceptor interceptor = new MybatisPlusInterceptor();
+
         interceptor.addInnerInterceptor(new PaginationInnerInterceptor(DbType.POSTGRE_SQL));
         // 添加乐观锁拦截器
         interceptor.addInnerInterceptor(new OptimisticLockerInnerInterceptor());
+
         return interceptor;
     }
+
+
 }

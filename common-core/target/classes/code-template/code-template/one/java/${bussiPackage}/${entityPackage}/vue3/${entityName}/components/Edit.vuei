@@ -33,7 +33,7 @@ const dialogSchemas = reactive<FormSchema[]>([
   //  {
   //    component: 'Input',
   //    field: 'address',
-  //    label: 'µØÖ·',
+  //    label: 'åœ°å€',
   //    colProps: {
   //      span: 24
   //    },
@@ -45,7 +45,7 @@ const dialogSchemas = reactive<FormSchema[]>([
   //  },
 ])
 
-// ÅäÖÃ±íµ¥ÑéÖ¤£¬¿Éµ÷ÓÃuseValidatorÕıÔò¿â·½±ã¸÷ÖÖÇé¿öÑéÖ¤
+// é…ç½®è¡¨å•éªŒè¯ï¼Œå¯è°ƒç”¨useValidatoræ­£åˆ™åº“æ–¹ä¾¿å„ç§æƒ…å†µéªŒè¯
 const rules = reactive({
   <#list columns as po>
     <#if po.fieldName !='id'>
@@ -60,8 +60,8 @@ const { setValues, getFormData, getElFormExpose } = formMethods
 const isEdit = ref(false)
 
 /**
- * ĞÂÔö¡¢±à¼­Ìá½»ÊÂ¼ş
- * ÏÈ½øĞĞ±íµ¥ÑéÖ¤£¬ÑéÖ¤Í¨¹ıÔò½øĞĞ±à¼­»òĞÂÔöÌá½»
+ * æ–°å¢ã€ç¼–è¾‘æäº¤äº‹ä»¶
+ * å…ˆè¿›è¡Œè¡¨å•éªŒè¯ï¼ŒéªŒè¯é€šè¿‡åˆ™è¿›è¡Œç¼–è¾‘æˆ–æ–°å¢æäº¤
  */
 const submit = async () => {
   const elForm = await getElFormExpose()
@@ -72,7 +72,7 @@ const submit = async () => {
     const formData = await getFormData()
     console.log(formData)
     if (isEdit.value) {
-      // ±à¼­Êı¾İ
+      // ç¼–è¾‘æ•°æ®
       const res: any = await handleEdit(formData)
       console.log(res)
       if (res.success) {
@@ -81,7 +81,7 @@ const submit = async () => {
         return false
       }
     } else {
-      // ĞÂÔöÊı¾İ
+      // æ–°å¢æ•°æ®
       const res: any = await handleAdd(formData)
       if (res.success) {
         return res.message

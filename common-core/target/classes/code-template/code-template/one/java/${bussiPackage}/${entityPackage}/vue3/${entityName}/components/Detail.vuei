@@ -1,14 +1,14 @@
 <script setup lang="tsx">
 /**
- * ÏêÇéµ¯¿ò£¬µ±Ç°´æ·Åviews/WarnMonitor/Risk/Detail.vueÄ¿Â¼ÏÂ
- * ºóÆÚÈç¹ûÆäËûÒ³ÃæÏêÇéµ¯¿òÓë¸ÃÒ³ÃæÏêÇéµ¯¿òÑùÊ½ÏàÍ¬£¬½«³éÀëÎª¹«¹²×é¼þ
+ * è¯¦æƒ…å¼¹æ¡†ï¼Œå½“å‰å­˜æ”¾views/WarnMonitor/Risk/Detail.vueç›®å½•ä¸‹
+ * åŽæœŸå¦‚æžœå…¶ä»–é¡µé¢è¯¦æƒ…å¼¹æ¡†ä¸Žè¯¥é¡µé¢è¯¦æƒ…å¼¹æ¡†æ ·å¼ç›¸åŒï¼Œå°†æŠ½ç¦»ä¸ºå…¬å…±ç»„ä»¶
  */
 import { reactive, onMounted, ref } from 'vue'
 import {dialogFields} from '../${entityName}Api'
 
 const list: any = reactive([])
 
-// ¸ù¾ÝÍâ²¿ÅäÖÃ¶ÔÏó£¬¶¯Ì¬äÖÈ¾ËùÐèÕ¹Ê¾×Ö¶Î
+// æ ¹æ®å¤–éƒ¨é…ç½®å¯¹è±¡ï¼ŒåŠ¨æ€æ¸²æŸ“æ‰€éœ€å±•ç¤ºå­—æ®µ
 const feedBackData = (row) => {
   console.log(row)
   Object.keys(dialogFields).forEach((key: any) => {
@@ -23,7 +23,7 @@ const feedBackData = (row) => {
 const label = ref()
 onMounted(() => {
   let maxWidth = 0
-  // ¶¯Ì¬ÉèÖÃÏêÇéµ¯¿òlable×Ö¶ÎÕ¹Ê¾×î´ó¿í¶È
+  // åŠ¨æ€è®¾ç½®è¯¦æƒ…å¼¹æ¡†lableå­—æ®µå±•ç¤ºæœ€å¤§å®½åº¦
   setTimeout(() => {
     label.value.forEach((cell) => {
       const width = cell.offsetWidth

@@ -13,13 +13,14 @@ spring:
   resource:
     static-locations: classpath:/static/,classpath:/public/
 
+  #动态数据源
   datasource:
     dynamic:
       primary: master
       datasource:
         master:
           driver-class-name: org.postgresql.Driver
-          url: jdbc:postgresql://10.0.15.28:5432/smartwater_ai
+          url: jdbc:postgresql://10.0.15.28:5432/smart_wms
           username: postgres
           password: Data@2025
 
@@ -27,12 +28,11 @@ spring:
     nacos:
       discovery:
         server-addr: 10.0.15.26:8848
-        name-space:
-        group: DEFAULT_GROUP
-    sentinel:
-      transport:
-        # 添加sentinel的控制台地址
-        dashboard: 10.0.15.26:8088
+        name-space: fusionhubxv1
+        group: http
+        username: nacos
+        password: nacos@hanwei#2025
+
   data:
     redis:
 #      prefix: ai_   #各个业务系统得缓存key前缀，用于区分不同系统的缓存数据
@@ -48,6 +48,21 @@ spring:
           max-idle: 10      # 连接池中的最大空闲连接
           min-idle: 0       # 连接池中的最小空闲连接
 
+mybatis-plus:
+  mapper-locations: classpath*:com/hanwei/**/xml/*Mapper.xml
+  global-config:
+    # 关闭MP3.0自带的banner
+    banner: false
+    db-config:
+      #主键类型  0:"数据库ID自增",1:"该类型为未设置主键类型", 2:"用户输入ID",3:"全局唯一ID (数字类型唯一ID)", 4:"全局唯一ID UUID",5:"字符串全局唯一ID (idWorker 的字符串表示)";
+      id-type: ASSIGN_ID
+      # 默认数据库表下划线命名
+      table-underline: true
+  configuration:
+    # 这个配置会将执行的sql打印出来，在开发或测试的时候可以用
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    # 返回类型为Map,显示null对应的字段
+    call-setters-on-nulls: true
 
 # Dubbo服务配置
 dubbo:
@@ -65,9 +80,14 @@ dubbo:
     parameters:
       namespace: fusionhubxv1
     group: dubbo
+    username: nacos
+    password: nacos@hanwei#2025
     register-mode: instance
 #  cloud:
 #    subscribed-services: fhx-authlink
+
+swagger:
+  enabled: true
 
 excel:
   # 导入excel批处理数配置
@@ -84,3 +104,4 @@ autoApi:
   gatewayPort: 9080
   # 注册环境 -Test 测试 -PRE 准生产环境 -RELEASE 生产环境
   env: -Test
+  ticket: eyJraWQiOiI3MjRjYzc4ZC1jYTFjLTRiYWMtOGMwNi1lM2U1Y2MxMWZiMDIiLCJhbGciOiJSUzI1NiJ9.eyJzdWIiOiJmdXNpb25odWJ4IiwiYXVkIjoiYXBpMTU2NWY0MGU5YzRiNWRjNiIsIm5iZiI6MTc1MjE5NDMyMSwic2NvcGUiOlsib3BlbmlkIiwicHJvZmlsZSJdLCJpc3MiOiJodHRwOi8vMTAuMC4xNS40MDo4MDAxL2F1dGhsaW5rIiwiZGVwdElkIjoiMTA1Mjc0N2MtZTY5Ny00ZmEyLTk5MzEtNjZiZmM0N2ZmNGQ5IiwiZXhwIjoxNzUyMjgwNzIxLCJpYXQiOjE3NTIxOTQzMjEsImp0aSI6IjUzZjU3M2NlLTQ0MjktNDY5Ni1hMzdjLTc1N2I2ZmRlYTdlNSJ9.2KpxPPJSmvmXBV8wnCUgQjnLDtrcXvpBhD0lreEc87jA2PKh0_aF8hCsxaNK32buu0SJbFoNF8Y9j0yeJzJfRU7J7Ikr6WUOs2vY5EqQnbEaexd5ZZDb1Ihf04wLpu3ikcc7QyIUsIiPOji6355g2rpGkY7O4LSIwn5eaxQdEqscUJlQLS3qqlXOSIakcvGa1hgx2I3cwDFEmqWeeqU5txDBkC60MwhgEGJv7HQBymkuKOc5tTWRPUaAs6upc0beNwqK_GHSffkCYPb0TAparSyOKFKYS-20ozd3AMJoa30hOd_rSdD23xKK2dml5pFYcM4xEkXTlYzT-vjdvm3-Sg

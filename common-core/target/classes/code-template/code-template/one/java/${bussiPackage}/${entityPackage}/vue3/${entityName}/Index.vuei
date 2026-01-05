@@ -1,47 +1,47 @@
 <script setup lang="tsx">
-// ts±íµ¥ÅäÖÃ¶ÔÏóÀàĞÍ£¬²»Ç¿ÖÆÊ¹ÓÃ
+// tsè¡¨å•é…ç½®å¯¹è±¡ç±»å‹ï¼Œä¸å¼ºåˆ¶ä½¿ç”¨
 import { FormSchema } from '@/components/Form'
-// ËÑË÷×é¼ş
+// æœç´¢ç»„ä»¶
 import { Search } from '@/components/Search'
-// ÎÄ×Ö¹ú¼Ê»¯£¬²»Ç¿ÖÆÊ¹ÓÃ
+// æ–‡å­—å›½é™…åŒ–ï¼Œä¸å¼ºåˆ¶ä½¿ç”¨
 import { useI18n } from '@/hooks/web/useI18n'
-// ±í¸ñ×óÉÏ½Ç°´Å¥²¿·Ö×é¼ş
+// è¡¨æ ¼å·¦ä¸Šè§’æŒ‰é’®éƒ¨åˆ†ç»„ä»¶
 import { tableTitle } from '@/components/tableTitle'
-// ±í¸ñ×é¼ş
+// è¡¨æ ¼ç»„ä»¶
 import { Table } from '@/components/Table'
 
-// ±í¸ñhookº¯Êı£¬ÅäÖÃ±í¸ñ±Ø±¸
+// è¡¨æ ¼hookå‡½æ•°ï¼Œé…ç½®è¡¨æ ¼å¿…å¤‡
 import { useTable } from '@/hooks/web/useTable'
-// µ¯¿ò×é¼ş
+// å¼¹æ¡†ç»„ä»¶
 import { Dialog } from '@/components/Dialog'
-// vueÄÚÖÃ¶ÔÏó£¬ÒÔÏÂ¶ÔÏó´ó²¿·Ö³¡¾°ĞèÒª
+// vueå†…ç½®å¯¹è±¡ï¼Œä»¥ä¸‹å¯¹è±¡å¤§éƒ¨åˆ†åœºæ™¯éœ€è¦
 import { nextTick, onMounted, reactive, ref, unref } from 'vue'
-// ¿çÒ³ÃæÍ¨Ñ¶¶ÔÏó£¬²»Ç¿ÖÆÊ¹ÓÃ
+// è·¨é¡µé¢é€šè®¯å¯¹è±¡ï¼Œä¸å¼ºåˆ¶ä½¿ç”¨
 // import { useEventBus } from '@/hooks/event/useEventBus'
-// ÅäÖÃÒ³Ãæ¸÷×é¼şÄÚÈİ´ó¶ÔÏó£¬±Ø±¸
+// é…ç½®é¡µé¢å„ç»„ä»¶å†…å®¹å¤§å¯¹è±¡ï¼Œå¿…å¤‡
 import { CrudSchema, useCrudSchemas } from '@/hooks/web/useCrudSchemas'
-// °´Å¥×é¼ş
+// æŒ‰é’®ç»„ä»¶
 import { BaseButton } from '@/components/Button'
-// µ¼Èëµ¼³ö×é¼ş
+// å¯¼å…¥å¯¼å‡ºç»„ä»¶
 import { Import } from '@/components/Import'
-// ĞÂÔö±à¼­µ¯¿òÄÚÈİ
+// æ–°å¢ç¼–è¾‘å¼¹æ¡†å†…å®¹
 import Edit from './components/Edit.vue'
-// ÏêÇéÄÚÈİ
+// è¯¦æƒ…å†…å®¹
 import Detail from './components/Detail.vue'
-// get\post½Ó¿Ú
+// get\postæ¥å£
 import { commonGetData, commonPostData, dealParams } from '@/utils/requestJava'
-// elementplus UI¿âÄÚÖÃ°´Å¥ºÍÏûÏ¢ÌáÊ¾×é¼ş
+// elementplus UIåº“å†…ç½®æŒ‰é’®å’Œæ¶ˆæ¯æç¤ºç»„ä»¶
 import { ElButton, ElMessageBox } from 'element-plus'
-// ÎÄ¼şÏÂÔØ²å¼ş£¨µÚÈı·½£©
-// ÎÄ¼şÏÂÔØ²å¼ş£¨ÊÖ¶¯·â×°£©
+// æ–‡ä»¶ä¸‹è½½æ’ä»¶ï¼ˆç¬¬ä¸‰æ–¹ï¼‰
+// æ–‡ä»¶ä¸‹è½½æ’ä»¶ï¼ˆæ‰‹åŠ¨å°è£…ï¼‰
 import fileExport from '@/utils/fileExports'
-// °´Å¥·À¶¶£¬±Ø±¸
+// æŒ‰é’®é˜²æŠ–ï¼Œå¿…å¤‡
 import { debounce } from 'lodash-es'
-// ÇëÇóºóÏûÏ¢ÌáÊ¾×é¼ş£¬±Ø±¸
+// è¯·æ±‚åæ¶ˆæ¯æç¤ºç»„ä»¶ï¼Œå¿…å¤‡
 import { useMessage } from '@/hooks/web/useMessage'
-// ¸ü¶à×é¼ş
+// æ›´å¤šç»„ä»¶
 import { CheckMore } from '@/components/CheckMore'
-// È«¾ÖÅäÖÃµÄ¶¯×÷µãÈ¨ÏŞcode
+// å…¨å±€é…ç½®çš„åŠ¨ä½œç‚¹æƒé™code
 import permissionCode from '@/utils/permissionCode'
 import {
   handleExport,
@@ -56,17 +56,17 @@ defineOptions({
 })
 
 /**
- * ¶¨ÒåËÑË÷²ÎÊı£¬²¢Ö´ĞĞËÑË÷ÊÂ¼ş
+ * å®šä¹‰æœç´¢å‚æ•°ï¼Œå¹¶æ‰§è¡Œæœç´¢äº‹ä»¶
  */
 const searchParams = ref({})
 const setSearchParams = (params: any) => {
-  // ×Ö¶Î·­ÒëÃû³Æ×ªÒå
+  // å­—æ®µç¿»è¯‘åç§°è½¬ä¹‰
   params = renameAnyProps(params)
   searchParams.value = params
   getList()
 }
 
-// ¶¨ÒåÒ»¸öÀàĞÍ×ª»»º¯Êı
+// å®šä¹‰ä¸€ä¸ªç±»å‹è½¬æ¢å‡½æ•°
 function renameAnyProps(obj: Record<string, any>): Record<string, any> {
   const newObj: Record<string, any> = {}
   for (const [key, value] of Object.entries(obj)) {
@@ -77,12 +77,12 @@ function renameAnyProps(obj: Record<string, any>): Record<string, any> {
 }
 
 /**
- * ±í¸ñ³õÊ¼»¯£¬¶¨Òå»ñÈ¡±í¸ñÊı¾İ½Ó¿Ú
- * ½â¹¹±í¸ñÊı¾İ¶ÔÏó
- *  loading, dataList, total, currentPage, pageSize²¢°ó¶¨×é¼ş
- * ½â¹¹±í¸ñ·½·¨
+ * è¡¨æ ¼åˆå§‹åŒ–ï¼Œå®šä¹‰è·å–è¡¨æ ¼æ•°æ®æ¥å£
+ * è§£æ„è¡¨æ ¼æ•°æ®å¯¹è±¡
+ *  loading, dataList, total, currentPage, pageSizeå¹¶ç»‘å®šç»„ä»¶
+ * è§£æ„è¡¨æ ¼æ–¹æ³•
  *  getList, getElTableExpose, refresh
- *  ÇëÇóÊı¾İ¡¢»ñÈ¡±í¸ñ»ñÈ¡ĞĞÄÚÈİ¡¢Ë¢ĞÂ
+ *  è¯·æ±‚æ•°æ®ã€è·å–è¡¨æ ¼è·å–è¡Œå†…å®¹ã€åˆ·æ–°
  */
 const { tableRegister, tableState, tableMethods } = useTable({
   fetchDataApi: async () => {
@@ -107,9 +107,9 @@ const { getList, getElTableExpose, refresh } = tableMethods
 const { t } = useI18n()
 
 /**
- * Ò³Ãæ¸´ºÏ¶ÔÏó searchËÑË÷À¸¶ÔÏó  table±í¸ñ¶ÔÏó
- * ³õÊ¼»¯ÅäÖÃËÑË÷Ïî¡¢±í¸ñµÈÖØÒª×é¼ş
- * ÅäÖÃsearch¶ÔÏó¼´¿ÉÊ¹ÏàÓ¦µÄ¶ÔÏóÔÚËÑË÷×é¼şÖĞÕ¹Ê¾¡¢ÅäÖÃtable¶ÔÏóÍ¬Àí
+ * é¡µé¢å¤åˆå¯¹è±¡ searchæœç´¢æ å¯¹è±¡  tableè¡¨æ ¼å¯¹è±¡
+ * åˆå§‹åŒ–é…ç½®æœç´¢é¡¹ã€è¡¨æ ¼ç­‰é‡è¦ç»„ä»¶
+ * é…ç½®searchå¯¹è±¡å³å¯ä½¿ç›¸åº”çš„å¯¹è±¡åœ¨æœç´¢ç»„ä»¶ä¸­å±•ç¤ºã€é…ç½®tableå¯¹è±¡åŒç†
  */
 const crudSchemas = reactive<CrudSchema[]>([
   {
@@ -136,7 +136,7 @@ const crudSchemas = reactive<CrudSchema[]>([
     label: t('tableDemo.action'),
     table: {
       /**
-       * slot²å²Û ´Ë´¦Ö§³Öjsx/tsxÓï·¨
+       * slotæ’æ§½ æ­¤å¤„æ”¯æŒjsx/tsxè¯­æ³•
        */
       slots: {
         default: (data: any) => {
@@ -145,11 +145,11 @@ const crudSchemas = reactive<CrudSchema[]>([
               <ElButton
                 type="primary"
                 link
-                onClick={() => btnAction(data.row, 'ÏêÇé')}
+                onClick={() => btnAction(data.row, 'è¯¦æƒ…')}
                 style="margin-right: 10px"
                 v-actPermission={permissionCode.VIEW}
               >
-                ÏêÇé
+                è¯¦æƒ…
               </ElButton>
               <CheckMore list={moreList(data.row)}></CheckMore>
             </>
@@ -161,26 +161,26 @@ const crudSchemas = reactive<CrudSchema[]>([
 ])
 
 /**
- * ÅäÖÃ¸ü¶à°´Å¥
+ * é…ç½®æ›´å¤šæŒ‰é’®
  * list: [{
- *  label °´Å¥Ãû³Æ
- *  code °´Å¥È¨ÏŞ´úÂë
- *  callback °´Å¥»Øµ÷º¯Êı
+ *  label æŒ‰é’®åç§°
+ *  code æŒ‰é’®æƒé™ä»£ç 
+ *  callback æŒ‰é’®å›è°ƒå‡½æ•°
  * }]
- * code: [µ±Ç°¸ü¶à°´Å¥µ±ÖĞËùÓĞ°´Å¥È¨ÏŞ´úÂë]
+ * code: [å½“å‰æ›´å¤šæŒ‰é’®å½“ä¸­æ‰€æœ‰æŒ‰é’®æƒé™ä»£ç ]
  */
 const moreList = (row) => {
   return {
     list: [
       {
-        label: '±à¼­',
+        label: 'ç¼–è¾‘',
         code: permissionCode.EDIT,
         callback: () => {
-          editDialog(row, '±à¼­')
+          editDialog(row, 'ç¼–è¾‘')
         }
       },
       {
-        label: 'É¾³ı',
+        label: 'åˆ é™¤',
         code: permissionCode.DELETE,
         callback: () => {
           doDelete(row)
@@ -192,47 +192,47 @@ const moreList = (row) => {
 }
 
 /**
- * ½«ÅäÖÃµÄcrudSchemas×°½øhoodº¯Êı£¬µÃµ½È«²¿ÅäÖÃ
- * µÃµ½µÄallSchemasµ±ÖĞ¿ÉÒÔ·Ö±ğ²ğ³ı¶àÖÖ×é¼şÅäÖÃ£¬
- *  °üÀ¨searchSchema¡¢tableColumns£¬¿É³é³öÕâĞ©¶ÔÏó²¢¶ş´Î·â×°
+ * å°†é…ç½®çš„crudSchemasè£…è¿›hoodå‡½æ•°ï¼Œå¾—åˆ°å…¨éƒ¨é…ç½®
+ * å¾—åˆ°çš„allSchemaså½“ä¸­å¯ä»¥åˆ†åˆ«æ‹†é™¤å¤šç§ç»„ä»¶é…ç½®ï¼Œ
+ *  åŒ…æ‹¬searchSchemaã€tableColumnsï¼Œå¯æŠ½å‡ºè¿™äº›å¯¹è±¡å¹¶äºŒæ¬¡å°è£…
  */
 const { allSchemas } = useCrudSchemas(crudSchemas)
 const searchSchema = reactive<FormSchema[]>([])
 searchSchema.push(...allSchemas.searchSchema)
 
-// µ¼Èëµ¼³öÏà¹Ø
-const importVisible = ref(false) // ¿ØÖÆµ¼Èë´°¿ÚµÄÏÔÊ¾
-const importExplain = ref(['ÒÔÎÄ±¾¸ñÊ½ÌîĞ´Ïà¹ØÄÚÈİ', 'ÕıÈ·ÌîĞ´ÀàĞÍÃû³Æ£¬¿É²éÔÄÏà¹ØÊı¾İ×Öµä']) // µ¼ÈëÄ£°åÄÚµÄµ¼ÈëËµÃ÷
-const importTitle = ref('µ¼ÈëÑùÀı') //µ¼Èëµ¯´°±êÌâ
+// å¯¼å…¥å¯¼å‡ºç›¸å…³
+const importVisible = ref(false) // æ§åˆ¶å¯¼å…¥çª—å£çš„æ˜¾ç¤º
+const importExplain = ref(['ä»¥æ–‡æœ¬æ ¼å¼å¡«å†™ç›¸å…³å†…å®¹', 'æ­£ç¡®å¡«å†™ç±»å‹åç§°ï¼Œå¯æŸ¥é˜…ç›¸å…³æ•°æ®å­—å…¸']) // å¯¼å…¥æ¨¡æ¿å†…çš„å¯¼å…¥è¯´æ˜
+const importTitle = ref('å¯¼å…¥æ ·ä¾‹') //å¯¼å…¥å¼¹çª—æ ‡é¢˜
 const doUpload = () => {
-  importTitle.value = 'µ¼ÈëÎÄ¼ş'
+  importTitle.value = 'å¯¼å…¥æ–‡ä»¶'
   importVisible.value = true
 }
 
-// »ñÈ¡µ¼ÈëÄ£°å
+// è·å–å¯¼å…¥æ¨¡æ¿
 const getFile = async () => {
-  // ´Ë´¦Ğ´ÏÂÔØÄ£°åµÄ·½·¨
-  // ²ÎÊı°´ĞèÌîĞ´
+  // æ­¤å¤„å†™ä¸‹è½½æ¨¡æ¿çš„æ–¹æ³•
+  // å‚æ•°æŒ‰éœ€å¡«å†™
   try {
-    // ·¢ËÍ GET ÇëÇó»ñÈ¡Ä£°åÎÄ¼ş
+    // å‘é€ GET è¯·æ±‚è·å–æ¨¡æ¿æ–‡ä»¶
     handleGetFile().then((res: any) => {
       const fileData = res.result
       console.log(fileData)
-      // url ÏÂÔØ  ÍÆ¼ö
+      // url ä¸‹è½½  æ¨è
       // download(fileData)
-      // ÎÄ¼şÁ÷¸ñÊ½ÏÂÔØ base64¸ñÊ½ÏÂÔØ
+      // æ–‡ä»¶æµæ ¼å¼ä¸‹è½½ base64æ ¼å¼ä¸‹è½½
       // download(fileData, 'filename.pdf', 'application/pdf')
       fileExport(fileData, '${tableVo.ftlDescription}.xlsx')
     })
   } catch (error) {
-    console.error('ÏÂÔØÎÄ¼şÊ±³ö´í£º', error)
+    console.error('ä¸‹è½½æ–‡ä»¶æ—¶å‡ºé”™ï¼š', error)
   }
 }
-// µ¼ÈëÉÏ´«ÎÄ¼ş
+// å¯¼å…¥ä¸Šä¼ æ–‡ä»¶
 const fileUpload = (file) => {
   const whiteList = ['xls', 'xlsx']
   if (!whiteList.includes(file.name.split('.')[1])) {
-    useMessage('warning', 'ÇëÉÏ´«xlsx¸ñÊ½µÄÎÄ¼ş')
+    useMessage('warning', 'è¯·ä¸Šä¼ xlsxæ ¼å¼çš„æ–‡ä»¶')
     return false
   } else {
     handleFileUpload({
@@ -248,19 +248,19 @@ const fileUpload = (file) => {
   }
 }
 
-// µ¼³öÎÄ¼ş·½·¨
+// å¯¼å‡ºæ–‡ä»¶æ–¹æ³•
 const doExport = () => {
   handleExport().then((res: any) => {
     if (res.success) {
       fileExport(res.result, '${tableVo.ftlDescription}.xlsx')
       useMessage('success', res.message)
     } else {
-      useMessage('error', 'µ¼³öÊ§°Ü')
+      useMessage('error', 'å¯¼å‡ºå¤±è´¥')
     }
   })
 }
 
-// µ¯¿òÏà¹Ø
+// å¼¹æ¡†ç›¸å…³
 const dialogTitle = ref('')
 const dialogVisible = ref(false)
 const edit = ref()
@@ -272,41 +272,41 @@ const closeDialog = () => {
   dialogVisible.value = false
 }
 
-// °´Å¥µã»÷ÊÂ¼ş¿ØÖÆ
+// æŒ‰é’®ç‚¹å‡»äº‹ä»¶æ§åˆ¶
 const btnAction = (row, title) => {
-  // ¸ù¾İÀàĞÍ·ÖÅäµ¯¿ò
-  if (title === 'ĞÂÔö') {
+  // æ ¹æ®ç±»å‹åˆ†é…å¼¹æ¡†
+  if (title === 'æ–°å¢') {
     openDialog()
     dialogTitle.value = title
-  } else if (title === '±à¼­' || title === 'ÏêÇé') {
+  } else if (title === 'ç¼–è¾‘' || title === 'è¯¦æƒ…') {
     editDialog(row, title)
-  } else if (title === 'É¾³ı') {
+  } else if (title === 'åˆ é™¤') {
     doDelete(row)
-  } else if (title === 'ÅúÁ¿É¾³ı') {
+  } else if (title === 'æ‰¹é‡åˆ é™¤') {
     doMutiDelete()
   }
 }
-// ±à¼­
+// ç¼–è¾‘
 const editDialog = (row, title) => {
   openDialog()
   dialogTitle.value = title
-  if (title === '±à¼­') {
+  if (title === 'ç¼–è¾‘') {
     nextTick(() => {
-      // ±à¼­Ê±Ìî×°µ¯¿òÊı¾İ
+      // ç¼–è¾‘æ—¶å¡«è£…å¼¹æ¡†æ•°æ®
       edit.value.feedBackData(row)
     })
   } else {
     nextTick(() => {
-      // Õ¹Ê¾ÏêÇéÊ±Ìî×°Êı¾İ
+      // å±•ç¤ºè¯¦æƒ…æ—¶å¡«è£…æ•°æ®
       detail.value.feedBackData(row)
     })
   }
 }
-// µ¥Ñ¡É¾³ı
+// å•é€‰åˆ é™¤
 const doDelete = (row) => {
-  ElMessageBox.confirm('ÊÇ·ñÈ·ÈÏÉ¾³ı£¿', '¾¯¸æ', {
-    confirmButtonText: 'È·ÈÏ',
-    cancelButtonText: 'È¡Ïû',
+  ElMessageBox.confirm('æ˜¯å¦ç¡®è®¤åˆ é™¤ï¼Ÿ', 'è­¦å‘Š', {
+    confirmButtonText: 'ç¡®è®¤',
+    cancelButtonText: 'å–æ¶ˆ',
     type: 'warning'
   })
     .then(() => {
@@ -315,26 +315,26 @@ const doDelete = (row) => {
           getList()
           useMessage('success', res.message)
         } else {
-          useMessage('error', 'É¾³ıÊ§°Ü')
+          useMessage('error', 'åˆ é™¤å¤±è´¥')
         }
       })
     })
     .catch(() => {})
 }
 
-// ÅúÁ¿É¾³ı
+// æ‰¹é‡åˆ é™¤
 let ids: any = reactive([])
 const doMutiDelete = async () => {
   ids = []
-  // »ñÈ¡±»Ñ¡ĞĞÄÚÈİ
+  // è·å–è¢«é€‰è¡Œå†…å®¹
   const elTableExpose: any = await getElTableExpose()
   elTableExpose.getSelectionRows().map((item: any) => {
     ids.push(item.id)
   })
   if (ids.length > 0) {
-    ElMessageBox.confirm('ÊÇ·ñÈ·ÈÏÉ¾³ı£¿', '¾¯¸æ', {
-      confirmButtonText: 'È·ÈÏ',
-      cancelButtonText: 'È¡Ïû',
+    ElMessageBox.confirm('æ˜¯å¦ç¡®è®¤åˆ é™¤ï¼Ÿ', 'è­¦å‘Š', {
+      confirmButtonText: 'ç¡®è®¤',
+      cancelButtonText: 'å–æ¶ˆ',
       type: 'warning'
     })
       .then(() => {
@@ -343,19 +343,19 @@ const doMutiDelete = async () => {
             getList()
             useMessage('success', res.message)
           } else {
-            useMessage('error', 'É¾³ıÊ§°Ü')
+            useMessage('error', 'åˆ é™¤å¤±è´¥')
           }
         })
       })
       .catch(() => {})
   } else {
-    useMessage('warning', 'ÇëÑ¡ÔñÏëÒªÉ¾³ıĞĞ')
+    useMessage('warning', 'è¯·é€‰æ‹©æƒ³è¦åˆ é™¤è¡Œ')
   }
 }
 
-// µ¯¿òÈ·ÈÏÌá½»
+// å¼¹æ¡†ç¡®è®¤æäº¤
 const dialogConfirm = debounce(async () => {
-  // ÄÃµ½±à¼­µ¯¿òÊ¾Àı²¢Ö´ĞĞÌá½»º¯Êı
+  // æ‹¿åˆ°ç¼–è¾‘å¼¹æ¡†ç¤ºä¾‹å¹¶æ‰§è¡Œæäº¤å‡½æ•°
   const res = await edit.value.submit()
   if (res === undefined) {
     return
@@ -365,14 +365,14 @@ const dialogConfirm = debounce(async () => {
       closeDialog()
       getList()
     } else {
-      useMessage('error', '²Ù×÷Ê§°Ü')
+      useMessage('error', 'æ“ä½œå¤±è´¥')
     }
   }
 }, 200)
 
-// ÒÔÏÂ´úÂëÎªµ¥Ñ¡Ä£Ê½
-// const currentRow = ref() //µ±Ç°Ñ¡ÖĞĞĞ
-// const singleTableRef = ref<InstanceType<typeof Table>>() //±í¸ñÊµÀı
+// ä»¥ä¸‹ä»£ç ä¸ºå•é€‰æ¨¡å¼
+// const currentRow = ref() //å½“å‰é€‰ä¸­è¡Œ
+// const singleTableRef = ref<InstanceType<typeof Table>>() //è¡¨æ ¼å®ä¾‹
 // const handleCurrentChange = async (val) => {
 //   currentRow.value = val
 //   const elTableExpose: any = await getElTableExpose()
@@ -380,17 +380,17 @@ const dialogConfirm = debounce(async () => {
 // }
 
 /**
- * ·½·¨ºÍ±äÁ¿ÉùÃ÷Í³Ò»Ğ´µ½ÉÏ·½
- * ·½·¨µ÷ÓÃÍ³Ò»Ğ´µ½ÏÂ·½
+ * æ–¹æ³•å’Œå˜é‡å£°æ˜ç»Ÿä¸€å†™åˆ°ä¸Šæ–¹
+ * æ–¹æ³•è°ƒç”¨ç»Ÿä¸€å†™åˆ°ä¸‹æ–¹
  */
 
-// ÉúÃüÖÜÆÚº¯Êı£¬×é¼ş¼ÓÔØÍê³Éºó
+// ç”Ÿå‘½å‘¨æœŸå‡½æ•°ï¼Œç»„ä»¶åŠ è½½å®Œæˆå
 onMounted(() => {})
 </script>
 
 <template>
   <div class="h-100% p-10px">
-    <!-- ËÑË÷×é¼ş£¬¸Ã×é¼şÅäÖÃÈçÏÂ¼´¿É£¬²»Ğè¸Ä±ä -->
+    <!-- æœç´¢ç»„ä»¶ï¼Œè¯¥ç»„ä»¶é…ç½®å¦‚ä¸‹å³å¯ï¼Œä¸éœ€æ”¹å˜ -->
     <Search
       :schema="searchSchema"
       isCol
@@ -399,7 +399,7 @@ onMounted(() => {})
       @reset="setSearchParams"
     />
     <div class="p-15px pb0 el-card">
-      <!-- ±í¸ñ×é¼ş£¬¸Ã×é¼şÅäÖÃÈçÏÂ¼´¿É£¬²»Ğè¸Ä±ä -->
+      <!-- è¡¨æ ¼ç»„ä»¶ï¼Œè¯¥ç»„ä»¶é…ç½®å¦‚ä¸‹å³å¯ï¼Œä¸éœ€æ”¹å˜ -->
       <Table
         ref="singleTableRef"
         v-model:pageSize="pageSize"
@@ -419,38 +419,38 @@ onMounted(() => {})
         @refresh="refresh"
       >
         <template #buttonSlot>
-          <!-- ±í¸ñ×óÉÏ½Ç°´Å¥£¬¿É¸ù¾İÊµ¼ÊÇé¿ö½øĞĞĞŞ¸Ä -->
+          <!-- è¡¨æ ¼å·¦ä¸Šè§’æŒ‰é’®ï¼Œå¯æ ¹æ®å®é™…æƒ…å†µè¿›è¡Œä¿®æ”¹ -->
           <tableTitle>
-              <BaseButton type="primary" v-actPermission="permissionCode.ADD" @click="btnAction({}, 'ĞÂÔö')">{{
+              <BaseButton type="primary" v-actPermission="permissionCode.ADD" @click="btnAction({}, 'æ–°å¢')">{{
                   t('exampleDemo.add')
                 }}
               </BaseButton>
-              <BaseButton type="primary" v-actPermission="permissionCode.IMPORT" @click="doUpload">µ¼Èë</BaseButton>
-              <BaseButton type="primary" v-actPermission="permissionCode.EXPORT" @click="doExport">µ¼³ö</BaseButton>
-              <BaseButton type="primary" v-actPermission="permissionCode.MUTIDELETE" @click="btnAction({}, 'ÅúÁ¿É¾³ı')">ÅúÁ¿É¾³ı</BaseButton>
+              <BaseButton type="primary" v-actPermission="permissionCode.IMPORT" @click="doUpload">å¯¼å…¥</BaseButton>
+              <BaseButton type="primary" v-actPermission="permissionCode.EXPORT" @click="doExport">å¯¼å‡º</BaseButton>
+              <BaseButton type="primary" v-actPermission="permissionCode.MUTIDELETE" @click="btnAction({}, 'æ‰¹é‡åˆ é™¤')">æ‰¹é‡åˆ é™¤</BaseButton>
           </tableTitle>
         </template>
       </Table>
     </div>
-    <!-- µ¯¿ò×é¼ş£¬¿ÉÉèÖÃ×î´ó¿í¸ß£¬ÆäËûÅäÖÃ¿É²»±ä -->
+    <!-- å¼¹æ¡†ç»„ä»¶ï¼Œå¯è®¾ç½®æœ€å¤§å®½é«˜ï¼Œå…¶ä»–é…ç½®å¯ä¸å˜ -->
     <Dialog
-      :maxWidth="dialogTitle !== 'ÏêÇé' ? 520 : 520"
+      :maxWidth="dialogTitle !== 'è¯¦æƒ…' ? 520 : 520"
       maxHeight="auto"
       v-model="dialogVisible"
       :title="dialogTitle"
     >
-      <!-- µ¯¿ò¸ù¾İ²»Í¬Ìõ¼ş·Ö±ğäÖÈ¾±à¼­±íµ¥ºÍÏêÇé±íµ¥ -->
-      <Edit v-if="dialogTitle !== 'ÏêÇé'" ref="edit" />
+      <!-- å¼¹æ¡†æ ¹æ®ä¸åŒæ¡ä»¶åˆ†åˆ«æ¸²æŸ“ç¼–è¾‘è¡¨å•å’Œè¯¦æƒ…è¡¨å• -->
+      <Edit v-if="dialogTitle !== 'è¯¦æƒ…'" ref="edit" />
       <Detail v-else ref="detail" />
-      <!-- µ¯¿òÓÒÏÂ½Ç°´Å¥²¿·Ö -->
+      <!-- å¼¹æ¡†å³ä¸‹è§’æŒ‰é’®éƒ¨åˆ† -->
       <template #footer>
-        <BaseButton v-if="dialogTitle !== 'ÏêÇé'" type="primary" @click="dialogConfirm">
-          È·¶¨
+        <BaseButton v-if="dialogTitle !== 'è¯¦æƒ…'" type="primary" @click="dialogConfirm">
+          ç¡®å®š
         </BaseButton>
         <BaseButton @click="closeDialog">{{ t('dialogDemo.close') }}</BaseButton>
       </template>
     </Dialog>
-    <!-- µ¼Èëµ¼³ö×é¼ş£¬ÅäÖÃ²»Ğè¸Ä±ä -->
+    <!-- å¯¼å…¥å¯¼å‡ºç»„ä»¶ï¼Œé…ç½®ä¸éœ€æ”¹å˜ -->
     <Import
       v-model="importVisible"
       :title="importTitle"

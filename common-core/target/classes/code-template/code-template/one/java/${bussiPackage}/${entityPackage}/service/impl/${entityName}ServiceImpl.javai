@@ -47,7 +47,7 @@ public class ${entityName}ServiceImpl extends ServiceImpl<${entityName}Mapper, $
     private CommonAPI commonApi;
 
     /**
-     * ÒÔÏÂ·½·¨ĞèÒªÖ§³ÖÖ±½Ó·ÃÎÊÎÄ¼şÁ÷£¨Íø¹ØÔÊĞí£©
+     * ä»¥ä¸‹æ–¹æ³•éœ€è¦æ”¯æŒç›´æ¥è®¿é—®æ–‡ä»¶æµï¼ˆç½‘å…³å…è®¸ï¼‰
      *
      * @param outputStream
      * @param paramMap
@@ -61,7 +61,7 @@ public class ${entityName}ServiceImpl extends ServiceImpl<${entityName}Mapper, $
     }
 
     /**
-     * Èç¹ûÍø¹Ø²»ÖªµÀÖ±½Ó»ñÈ¡ÎÄ¼şÁ÷£¬×ªÎªbase64ºó·µ»ØÇ°¶Ë
+     * å¦‚æœç½‘å…³ä¸çŸ¥é“ç›´æ¥è·å–æ–‡ä»¶æµï¼Œè½¬ä¸ºbase64åè¿”å›å‰ç«¯
      *
      * @param paramMap
      * @param ${entityName?uncap_first}
@@ -70,7 +70,7 @@ public class ${entityName}ServiceImpl extends ServiceImpl<${entityName}Mapper, $
     public String exportDataToBase64(Map paramMap, ${entityName} ${entityName?uncap_first}) {
         QueryWrapper<${entityName}> queryWrapper = QueryGenerator.initQueryWrapper(${entityName?uncap_first}, paramMap);
         List<${entityName}> list = list(queryWrapper);
-        //×ÖµäÖµ×ª»»
+        //å­—å…¸å€¼è½¬æ¢
 //        List<JSON> listJson = commonApi.translateResultByDict(list);
 //        List<${entityName}> result = listJson.stream().map(e -> JSON.toJavaObject(e,${entityName}.class)).collect(Collectors.toList());
         String excelContent = null;
@@ -81,7 +81,7 @@ public class ${entityName}ServiceImpl extends ServiceImpl<${entityName}Mapper, $
     }
 
     /**
-     * Èç¹ûÍø¹Ø²»ÖªµÀÖ±½Ó»ñÈ¡ÎÄ¼şÁ÷£¬×ªÎªbase64ºó·µ»ØÇ°¶Ë
+     * å¦‚æœç½‘å…³ä¸çŸ¥é“ç›´æ¥è·å–æ–‡ä»¶æµï¼Œè½¬ä¸ºbase64åè¿”å›å‰ç«¯
      *
      * @param file
      */
@@ -93,30 +93,30 @@ public class ${entityName}ServiceImpl extends ServiceImpl<${entityName}Mapper, $
                 private List<${entityName}> cachedDataList = new ArrayList<>();
 
                 /**
-                 * Ã¿´Î¶ÁÈ¡¶¼»áµ÷ÓÃ
+                 * æ¯æ¬¡è¯»å–éƒ½ä¼šè°ƒç”¨
                  * @param data
                  * @param context
                  */
                 @SneakyThrows
                 @Override
                 public void invoke(${entityName} data, AnalysisContext context) {
-                    //---------------´¦Àí×Öµä×ªÒå
+                    //---------------å¤„ç†å­—å…¸è½¬ä¹‰
 //                    String text = commonApi.translateDictTextToKey("risk_place_type",data.getRiskType());
 //                    if(StringUtils.isEmpty(text)){
-//                        throw new ImportException("Êı¾İµÚ" + context.readRowHolder().getRowIndex()+ "ĞĞ´æÔÚÎ´ÅäÖÃµÃ×ÖµäÀàĞÍ£¬Êı¾İÀàĞÍ:" + data.getRiskType());
+//                        throw new ImportException("æ•°æ®ç¬¬" + context.readRowHolder().getRowIndex()+ "è¡Œå­˜åœ¨æœªé…ç½®å¾—å­—å…¸ç±»å‹ï¼Œæ•°æ®ç±»å‹:" + data.getRiskType());
 //                    }
 //                    data.setRiskType(text);
-                    //---------------´¦Àí×Öµä×ªÒå
+                    //---------------å¤„ç†å­—å…¸è½¬ä¹‰
                     cachedDataList.add(data);
                     if (cachedDataList.size() >= BATCH_SAVE_COUNT) {
                         saveData();
-                        // ´æ´¢Íê³ÉÇåÀí list
+                        // å­˜å‚¨å®Œæˆæ¸…ç† list
                         cachedDataList = ListUtils.newArrayListWithExpectedSize(BATCH_SAVE_COUNT);
                     }
                 }
 
                 /**
-                 * ËùÓĞÊı¾İ½âÎöÍê³Éºó²Å»áµ÷ÓÃ
+                 * æ‰€æœ‰æ•°æ®è§£æå®Œæˆåæ‰ä¼šè°ƒç”¨
                  */
                 @Override
                 public void doAfterAllAnalysed(AnalysisContext context) {
@@ -124,7 +124,7 @@ public class ${entityName}ServiceImpl extends ServiceImpl<${entityName}Mapper, $
                 }
 
                 /**
-                 * ¼ÓÉÏ´æ´¢Êı¾İ¿â
+                 * åŠ ä¸Šå­˜å‚¨æ•°æ®åº“
                  */
                 private void saveData() {
                     saveBatch(cachedDataList);
@@ -132,22 +132,22 @@ public class ${entityName}ServiceImpl extends ServiceImpl<${entityName}Mapper, $
 
             }).sheet().doRead();
         } catch (Exception e) {
-            return Result.error("µ¼ÈëÊ§°Ü", e.getMessage());
+            return Result.error("å¯¼å…¥å¤±è´¥", e.getMessage());
         }
-        return Result.OK("µ¼Èë³É¹¦");
+        return Result.OK("å¯¼å…¥æˆåŠŸ");
     }
 
     /**
-     * ÏÂÔØµ¼ÈëÄ£°å
+     * ä¸‹è½½å¯¼å…¥æ¨¡æ¿
      * @return
      */
     @Override
     public String getImportTemplate() {
         String excelContent = null;
         try {
-            // Ä£°æÎÄ¼ş
+            // æ¨¡ç‰ˆæ–‡ä»¶
             ClassPathResource classPathResource = new ClassPathResource("template/${entityName}.xlsx");
-            // ·½Ê½Ò»£ºÂ·¾¶
+            // æ–¹å¼ä¸€ï¼šè·¯å¾„
             String templateFileName = classPathResource.getFile().getPath();
 
             if (StringUtils.isNotBlank(templateFileName)) {

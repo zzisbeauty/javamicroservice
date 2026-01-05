@@ -27,7 +27,7 @@ import jakarta.validation.constraints.NotEmpty;
 @AllArgsConstructor
 @ExcelIgnoreUnannotated
 @ColumnWidth(25)
-@Schema(title="${entityName}对象", description="${tableVo.ftlDescription}")
+@Schema(title="${entityName}瀵硅薄", description="${tableVo.ftlDescription}")
 public class ${entityName} {
 
     <#list originalColumns as po>
@@ -53,7 +53,7 @@ public class ${entityName} {
   </#if>
   </#if>
     @Schema(description = "${po.filedComment}")
-    @NotEmpty(message = "${po.filedComment}不能为空")
+    @NotEmpty(message = "${po.filedComment}涓嶈兘涓虹┖")
     @ExcelProperty("${po.filedComment}")
 	private <#if po.fieldType=='java.sql.Blob'>byte[]<#else>${po.fieldType}</#if> ${po.fieldName};
 	</#list>

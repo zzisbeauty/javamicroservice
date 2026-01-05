@@ -13,6 +13,7 @@
       </profile>
     </annotationProcessing>
     <bytecodeTargetLevel>
+      <module name="shuiwu" target="17" />
       <module name="test" target="17" />
       <module name="untitled1111" target="17" />
     </bytecodeTargetLevel>
@@ -22,6 +23,7 @@
       <module name="JavaMicroService" options="-parameters" />
       <module name="common-core" options="-parameters" />
       <module name="dubbo-facade" options="-parameters" />
+      <module name="shuiwu" options="-parameters" />
       <module name="test" options="-parameters" />
       <module name="test-sample" options="-parameters" />
     </option>

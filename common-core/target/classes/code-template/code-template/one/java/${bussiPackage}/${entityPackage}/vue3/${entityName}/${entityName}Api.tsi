@@ -1,26 +1,26 @@
-// apiÃ¶¾Ù
+// apiæšä¸¾
 enum API {
-  //×Öµä×ªÒå
+  //å­—å…¸è½¬ä¹‰
   TypeOption = 'f9a4b671060d0702',
-  //µ¼³ö
+  //å¯¼å‡º
   Export = '',
-  //»ñÈ¡ÏÂÔØÄ£°å
+  //è·å–ä¸‹è½½æ¨¡æ¿
   GetFile = '',
-  //ÅúÁ¿É¾³ı
+  //æ‰¹é‡åˆ é™¤
   MulDelete = '',
-  //É¾³ı
+  //åˆ é™¤
   Delete = '',
-  //µ¼Èë
+  //å¯¼å…¥
   FileUpload = '',
-  //Êı¾İÁĞ±í
+  //æ•°æ®åˆ—è¡¨
   FetchData = '',
-  //±à¼­
+  //ç¼–è¾‘
   Edit = '',
-  //ĞÂÔö
+  //æ–°å¢
   Add = '',
 }
 
-// ÏêÇéµ¯¿òĞèÒªÕ¹Ê¾Êı¾İÏî
+// è¯¦æƒ…å¼¹æ¡†éœ€è¦å±•ç¤ºæ•°æ®é¡¹
 export const dialogFields = {
   <#list columns as po>
   <#if po.fieldName !='id'>
@@ -29,10 +29,10 @@ export const dialogFields = {
   </#list>
 }
 
-// get\post½Ó¿Ú
+// get\postæ¥å£
 import { commonGetData, commonPostData, dealParams } from '@/utils/requestJava'
 
-// »ñÈ¡ÏÂÀ­¿òÊı¾İ½Ó¿Ú
+// è·å–ä¸‹æ‹‰æ¡†æ•°æ®æ¥å£
 export const getTypeOption = () => {
   return commonGetData(API.TypeOption, {
     code: 'TODO',
@@ -55,41 +55,41 @@ export const getTypeOption = () => {
 
 /**
  *
- *  Index.vue ÖĞµ÷ÓÃ
+ *  Index.vue ä¸­è°ƒç”¨
  *
  */
-// ÇëÇóÊı¾İ¡¢»ñÈ¡±í¸ñ»ñÈ¡ĞĞÄÚÈİ
+// è¯·æ±‚æ•°æ®ã€è·å–è¡¨æ ¼è·å–è¡Œå†…å®¹
 export const handleFetchData = (query) => {
   return commonPostData(API.FetchData, { ...query }, {})
 }
 
-// ÅúÁ¿É¾³ı
+// æ‰¹é‡åˆ é™¤
 export const handleMulDelete = (query) => {
   return commonPostData(API.MulDelete, { ...query }, {})
 }
-// µ¥Ñ¡É¾³ı
+// å•é€‰åˆ é™¤
 export const handleDelete = (query) => {
   return commonPostData(API.Delete, { ...query }, {})
 }
-// ·¢ËÍ GET ÇëÇó»ñÈ¡Ä£°åÎÄ¼ş
+// å‘é€ GET è¯·æ±‚è·å–æ¨¡æ¿æ–‡ä»¶
 export const handleGetFile = () => {
   return commonGetData(API.GetFile, {})
 }
-// µ¼ÈëÉÏ´«ÎÄ¼ş
+// å¯¼å…¥ä¸Šä¼ æ–‡ä»¶
 export const handleFileUpload = (params) => {
   return commonPostData(API.FileUpload, {}, { ...params }, 'multipart/form-data')
 }
-// µ¼³öÎÄ¼ş·½·¨
+// å¯¼å‡ºæ–‡ä»¶æ–¹æ³•
 export const handleExport = () => {
   return commonGetData(API.Export, {})
 }
 
 /**
  *
- *  ÔÚEdit.vue ÖĞµ÷ÓÃ
+ *  åœ¨Edit.vue ä¸­è°ƒç”¨
  *
  */
-// ±à¼­¡¢ĞÂÔöÌá½»·½·¨
+// ç¼–è¾‘ã€æ–°å¢æäº¤æ–¹æ³•
 export const handleEdit = (params) => {
   return commonPostData(API.Edit, {}, { ...params })
 }
