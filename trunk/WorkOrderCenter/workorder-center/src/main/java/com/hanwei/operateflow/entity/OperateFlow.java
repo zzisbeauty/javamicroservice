@@ -29,7 +29,6 @@ import jakarta.validation.constraints.NotEmpty;
 @ColumnWidth(25)
 @Schema(title="OperateFlow对象", description="操作流程记录信息")
 public class OperateFlow {
-
 	/**主键ID*/
 	@TableId(type = IdType.ASSIGN_ID)
     @Schema(description = "主键ID")
