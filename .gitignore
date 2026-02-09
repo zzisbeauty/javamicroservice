@@ -1,7 +1,6 @@
 .idea
 .svn
-.vscode
 log
 logs
-target
+*.html
 WorkOrderCenter
