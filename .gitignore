@@ -1,3 +1,7 @@
-.svn
 .idea
-
+.svn
+.vscode
+log
+logs
+target
+WorkOrderCenter
