@@ -2,16 +2,15 @@ package com.hanwei.operateflow.entity;
 
 import com.alibaba.excel.annotation.ExcelIgnoreUnannotated;
 import com.alibaba.excel.annotation.ExcelProperty;
-import com.alibaba.excel.annotation.format.NumberFormat;
 import com.alibaba.excel.annotation.write.style.ColumnWidth;
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.validation.constraints.NotEmpty;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
-import jakarta.validation.constraints.NotEmpty;
 
 /**
  * @Description: 操作流程记录信息
@@ -121,4 +120,9 @@ public class OperateFlow {
     @NotEmpty(message = "租户ID不能为空")
     @ExcelProperty("租户ID")
 	private String tenementId;
+
+    /**父节点ID（形成操作链条关系）*/
+    @Schema(description = "父节点ID（形成操作链条关系）")
+    @ExcelProperty("父节点ID（形成操作链条关系）")
+    private String pid;
 }

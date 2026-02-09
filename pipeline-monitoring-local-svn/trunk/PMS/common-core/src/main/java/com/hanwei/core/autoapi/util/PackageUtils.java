@@ -140,11 +140,16 @@ public class PackageUtils {
      * @param value
      * @return
      */
-    public String getFunctionIdNew(String value) {
+    public String getFunctionIdNew(String value) throws Exception{
         String functionId = "";
 
         //获取最新API分类数据
         List<ApiKindBo> apiKindBoList = gateWayService.getApiKindTree();
+
+        if(Optional.ofNullable(apiKindBoList).isEmpty()){
+            log.error("请确保网关至少存在一个分类");
+            throw new RuntimeException("请确保网关至少存在一个分类");
+        }
 
         if (Optional.ofNullable(value).isPresent()) {
             String[] functionNameArr = value.split("-");

@@ -1,0 +1,1 @@
+2026-01-13 02:02:22.952 [DubboMetadataReportTimer-thread-1] INFO  o.a.dubbo.metadata.store.nacos.NacosMetadataReport:71 -  [DUBBO] start to publish all metadata., dubbo version: 3.3.0, current host: 10.30.30.97

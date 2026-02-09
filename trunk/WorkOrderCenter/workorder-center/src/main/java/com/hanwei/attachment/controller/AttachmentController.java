@@ -1,32 +1,28 @@
 package com.hanwei.attachment.controller;
 
-import java.util.Arrays;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.hanwei.attachment.entity.Attachment;
+import com.hanwei.attachment.service.IAttachmentService;
+import com.hanwei.core.annotation.AutoLog;
+import com.hanwei.core.base.BaseController;
+import com.hanwei.core.base.QueryGenerator;
+import com.hanwei.core.common.api.vo.Result;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.servlet.http.HttpServletRequest;
+import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.Optional;
-
-import com.hanwei.core.annotation.AutoLog;
-import com.hanwei.core.base.BaseController;
-import com.hanwei.core.base.QueryGenerator;
-import com.hanwei.core.common.api.vo.Result;
-import com.hanwei.attachment.entity.Attachment;
-import com.hanwei.attachment.service.IAttachmentService;
-
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import jakarta.servlet.http.HttpServletResponse;
-import lombok.extern.slf4j.Slf4j;
-import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.servlet.http.HttpServletRequest;
-
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
 
 
 
@@ -84,6 +80,70 @@ public class AttachmentController extends BaseController<Attachment, IAttachment
 		}
 
 	}
+
+
+
+	 /** 生成流程ID */
+	 private String generateProcessId() {
+		 return "PROC_" + System.currentTimeMillis() + "_" + generateRandomId(4);
+	 }
+	 /** 生成随机ID */
+	 private String generateRandomId(int length) {
+		 String chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+		 StringBuilder sb = new StringBuilder();
+		 java.util.Random random = new java.util.Random();
+		 for (int i = 0; i < length; i++) {
+			 sb.append(chars.charAt(random.nextInt(chars.length())));
+		 }
+		 return sb.toString();
+	 }
+	 /** 根据文件后缀确定文件类型 */
+	 private String determineFileType(String fileName) {
+		 if (StringUtils.isEmpty(fileName)) {
+			 return "DOCUMENT";
+		 }
+		 String extension = fileName.substring(fileName.lastIndexOf(".") + 1).toLowerCase();
+		 switch (extension) {
+			 case "jpg":
+			 case "jpeg":
+			 case "png":
+			 case "gif":
+			 case "bmp":
+			 case "webp":
+				 return "IMAGE";
+			 case "pdf":
+				 return "PDF";
+			 case "doc":
+			 case "docx":
+				 return "DOC";
+			 case "xls":
+			 case "xlsx":
+				 return "EXCEL";
+			 case "ppt":
+			 case "pptx":
+				 return "PPT";
+			 case "txt":
+				 return "TEXT";
+			 case "mp4":
+			 case "avi":
+			 case "mov":
+			 case "wmv":
+				 return "VIDEO";
+			 case "mp3":
+			 case "wav":
+			 case "flac":
+				 return "AUDIO";
+			 case "zip":
+			 case "rar":
+			 case "7z":
+				 return "ARCHIVE";
+			 default:
+				 return "DOCUMENT";
+		 }
+	 }
+
+
+
 
 	/**
 	 * 编辑

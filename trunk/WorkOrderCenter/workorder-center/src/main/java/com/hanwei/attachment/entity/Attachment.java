@@ -43,12 +43,10 @@ public class Attachment {
 	private String processId;
 	/**文件名称*/
     @Schema(description = "文件名称")
-    @NotEmpty(message = "文件名称不能为空")
     @ExcelProperty("文件名称")
 	private String fileName;
 	/**文件类型（如：IMAGE, PDF, DOC, VIDEO 等）*/
     @Schema(description = "文件类型（如：IMAGE, PDF, DOC, VIDEO 等）")
-    @NotEmpty(message = "文件类型（如：IMAGE, PDF, DOC, VIDEO 等）不能为空")
     @ExcelProperty("文件类型（如：IMAGE, PDF, DOC, VIDEO 等）")
 	private String fileType;
 	/**文件URL*/
@@ -60,29 +58,24 @@ public class Attachment {
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
     @Schema(description = "创建时间")
-    @NotEmpty(message = "创建时间不能为空")
     @ExcelProperty("创建时间")
 	private java.util.Date createTime;
 	/**创建人ID*/
     @Schema(description = "创建人ID")
-    @NotEmpty(message = "创建人ID不能为空")
     @ExcelProperty("创建人ID")
 	private String createBy;
 	/**更新时间*/
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
     @Schema(description = "更新时间")
-    @NotEmpty(message = "更新时间不能为空")
     @ExcelProperty("更新时间")
 	private java.util.Date updateTime;
 	/**更新人ID*/
     @Schema(description = "更新人ID")
-    @NotEmpty(message = "更新人ID不能为空")
     @ExcelProperty("更新人ID")
 	private String updateBy;
 	/**租户ID*/
     @Schema(description = "租户ID")
-    @NotEmpty(message = "租户ID不能为空")
     @ExcelProperty("租户ID")
 	private String tenementId;
 }

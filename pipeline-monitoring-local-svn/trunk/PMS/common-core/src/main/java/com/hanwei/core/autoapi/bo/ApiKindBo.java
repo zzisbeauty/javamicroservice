@@ -45,7 +45,7 @@ public class ApiKindBo {
     private String remark;
 
     @Schema(description = "租户ID")
-    private Integer tenementGuid;
+    private String tenementGuid;
 
     @Schema(description = "创建人")
     private String createBy;

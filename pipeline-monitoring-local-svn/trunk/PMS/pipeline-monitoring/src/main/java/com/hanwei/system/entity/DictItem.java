@@ -65,7 +65,7 @@ public class DictItem {
     @NotEmpty(message = "status不能为空")
     @ExcelProperty("status")
     @Dict(dicCode = "until_status")
-	private java.lang.String status;
+	private Integer status;
 	/**createBy*/
     @Schema(description = "createBy")
     @ExcelProperty("createBy")

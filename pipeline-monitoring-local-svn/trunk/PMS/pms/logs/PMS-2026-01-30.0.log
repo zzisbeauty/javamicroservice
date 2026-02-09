@@ -1,0 +1,2 @@
+2026-01-30 02:04:20.709 [DubboMetadataReportTimer-thread-1] INFO  o.a.dubbo.metadata.store.nacos.NacosMetadataReport:71 -  [DUBBO] start to publish all metadata., dubbo version: 3.3.0, current host: 10.30.30.108
+2026-01-30 10:58:27.213 [http-nio-8204-exec-6] INFO  org.springdoc.api.AbstractOpenApiResource:369 - Init duration for springdoc-openapi is: 747 ms

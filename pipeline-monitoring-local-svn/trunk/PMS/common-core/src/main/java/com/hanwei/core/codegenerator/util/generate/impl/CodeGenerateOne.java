@@ -3,11 +3,9 @@ package com.hanwei.core.codegenerator.util.generate.impl;
 
 import com.hanwei.core.codegenerator.util.database.DbReadTableUtil;
 import com.hanwei.core.codegenerator.util.generate.IGenerate;
-
 import com.hanwei.core.codegenerator.util.generate.pojo.ColumnVo;
 import com.hanwei.core.codegenerator.util.generate.pojo.TableVo;
 import com.hanwei.core.codegenerator.util.generate.util.NonceUtils;
-import com.hanwei.core.codegenerator.util.generate.util.g;
 import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -96,6 +94,8 @@ public class CodeGenerateOne extends com.hanwei.core.codegenerator.util.generate
     public List<String> generateCodeFile(String stylePath) throws Exception {
         a.debug("----hanwei---Code----Generation----[单表模型:" + this.b.getTableName() + "]------- 生成中。。。");
         String var2 = com.hanwei.core.codegenerator.util.a.a.f;
+//        //生成前先删除文件夹里所有已经生成过的文件
+//        FileUtils.cleanDirectory(new File(var2));
         Map var3 = this.a();
         String var4 = com.hanwei.core.codegenerator.util.a.a.j;
         if (a(var4, "/").equals("code-template/code-template")) {

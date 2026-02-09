@@ -1,185 +1,321 @@
 package com.hanwei.core.codegenerator.util.window;
 
-
 import com.hanwei.core.codegenerator.util.database.DbReadTableUtil;
 import com.hanwei.core.codegenerator.util.generate.impl.CodeGenerateOne;
 import com.hanwei.core.codegenerator.util.generate.pojo.TableVo;
 
 import javax.swing.*;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 /**
  * @version : [v1.0]
- * @description : [一句话描述该类的功能]
+ * @description : 代码生成器窗口
  * @createTime : [2024/1/4 14:48]
  * @updateUser : [CX]
  * @updateTime : [2024/1/4 14:48]
  * @updateRemark : [说明本次修改内容]
  */
 public class CodeWindow extends JFrame {
-    private static final long b = -5324160085184088010L;
-    private static String c = "test";
-    private static String d = "TestEntity";
-    private static String e = "t00_company";
-    private static String f = "分公司";
-    private static Integer g = 1;
-    private static String h = "uuid";
-    private static String i = "";
-    String[] a = new String[]{"uuid", "identity", "sequence"};
+    private static final long serialVersionUID = -5324160085184088010L;
+    private String packageName = "test";
+    private String entityName = "TestEntity";
+    private String tableName = "t00_company";
+    private String description = "功能描述";
+    private Integer fieldRowNum = 1;
+    private String primaryKeyPolicy = "uuid";
+    private String sequenceCode = "";
+
+    private String[] primaryKeyOptions = new String[]{"uuid", "identity", "sequence"};
+
+    // 组件声明
+    private JPanel mainPanel;
+    private JPanel inputPanel;
+    private JPanel buttonPanel;
+    private JPanel formStylePanel;
+    private JPanel generateOptionsPanel;
+
+    private JTextField packageField;
+    private JTextField entityField;
+    private JTextField tableField;
+    private JComboBox<String> primaryKeyCombo;
+    private JLabel sequenceLabel;
+    private JTextField sequenceField;
+    private JTextField descriptionField;
+    private JTextField fieldRowField;
+    private JRadioButton drawerRadio;
+    private JRadioButton popupRadio;
+    private JCheckBox controlCheckbox;
+    private JCheckBox vueCheckbox;
+    private JCheckBox serviceCheckbox;
+    private JCheckBox mapperCheckbox;
+    private JCheckBox daoCheckbox;
+    private JCheckBox entityCheckbox;
+    private JCheckBox deleteOldFilesCheckbox;
+    private JLabel messageLabel;
+    private JButton generateButton;
+    private JButton exitButton;
 
     public CodeWindow() {
-        JPanel var1 = new JPanel();
-        this.setContentPane(var1);
-        var1.setLayout(new GridLayout(11, 2));
-        JLabel var2 = new JLabel("提示:");
-        final JLabel var3 = new JLabel();
-        JLabel var4 = new JLabel("包名（小写）：");
-        final JTextField var5 = new JTextField();
-        JLabel var6 = new JLabel("实体类名（首字母大写）：");
-        final JTextField var7 = new JTextField();
-        JLabel var8 = new JLabel("表名：");
-        final JTextField var9 = new JTextField(20);
-        JLabel var10 = new JLabel("主键生成策略：");
-        final JComboBox var11 = new JComboBox(this.a);
-        var11.setEnabled(false);
-        JLabel var12 = new JLabel("主键SEQUENCE：(oracle序列名)");
-        final JTextField var13 = new JTextField(20);
-        JLabel var14 = new JLabel("功能描述：");
-        final JTextField var15 = new JTextField();
-        JLabel var16 = new JLabel("行字段数目：");
-        JTextField var17 = new JTextField();
-        var17.setText(g + "");
-        ButtonGroup var18 = new ButtonGroup();
-        JRadioButton var19 = new JRadioButton("抽屉风格表单");
-        var19.setSelected(true);
-        JRadioButton var20 = new JRadioButton("弹窗风格表单");
-        var18.add(var19);
-        var18.add(var20);
-        JCheckBox var21 = new JCheckBox("Control");
-        var21.setSelected(true);
-        JCheckBox var22 = new JCheckBox("Vue");
-        var22.setSelected(true);
-        JCheckBox var23 = new JCheckBox("Service");
-        var23.setSelected(true);
-        JCheckBox var24 = new JCheckBox("Mapper.xml");
-        var24.setSelected(true);
-        JCheckBox var25 = new JCheckBox("Dao");
-        var25.setSelected(true);
-        JCheckBox var26 = new JCheckBox("Entity");
-        var26.setSelected(true);
-        var1.add(var2);
-        var1.add(var3);
-        var1.add(var4);
-        var1.add(var5);
-        var1.add(var6);
-        var1.add(var7);
-        var1.add(var8);
-        var1.add(var9);
-//        var1.add(var10);
-//        var1.add(var11);
-//        var1.add(var12);
-//        var1.add(var13);
-        var1.add(var14);
-        var1.add(var15);
-//        var1.add(var16);
-//        var1.add(var17);
-        var1.add(var21);
-        var1.add(var22);
-        var1.add(var23);
-        var1.add(var24);
-        var1.add(var25);
-        var1.add(var26);
-        var1.add(var19);
-        var1.add(var20);
-        JButton var27 = new JButton("生成");
-        var27.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                if (!"".equals(var5.getText())) {
-                    CodeWindow.c = var5.getText();
-                    if (!"".equals(var7.getText())) {
-                        CodeWindow.d = var7.getText();
-                        if (!"".equals(var15.getText())) {
-                            CodeWindow.f = var15.getText();
-                            if (!"".equals(var9.getText())) {
-                                CodeWindow.e = var9.getText();
-                                CodeWindow.h = (String)var11.getSelectedItem();
-                                if (CodeWindow.h.equals("sequence")) {
-                                    if ("".equals(var13.getText())) {
-                                        var3.setForeground(Color.red);
-                                        var3.setText("主键生成策略为sequence时，序列号不能为空！");
-                                        return;
-                                    }
+        initializeComponents();
+        setupLayout();
+        setTitle("智慧水务事业群代码生成器[单表模型]");
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setSize(new Dimension(800, 650));
+        setResizable(false);
+        setLocationRelativeTo(null); // 居中显示
+    }
 
-                                    CodeWindow.i = var13.getText();
-                                }
+    private void initializeComponents() {
+        // 安全地设置系统外观
+        try {
+            UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+        } catch (Exception e) {
+            // 如果设置外观失败，继续执行，不影响窗体显示
+            System.out.println("警告：无法设置系统外观，使用默认外观");
+            e.printStackTrace();
+        }
 
-                                try {
-                                    boolean var2 = DbReadTableUtil.c(CodeWindow.e);
-                                    if (var2) {
-                                        TableVo var3x = new TableVo();
-                                        var3x.setTableName(CodeWindow.e);
-                                        var3x.setPrimaryKeyPolicy(CodeWindow.h);
-                                        var3x.setEntityPackage(CodeWindow.c);
-                                        var3x.setEntityName(CodeWindow.d);
-                                        var3x.setFieldRowNum(CodeWindow.g);
-                                        var3x.setSequenceCode(CodeWindow.i);
-                                        var3x.setFtlDescription(CodeWindow.f);
-                                        (new CodeGenerateOne(var3x)).generateCodeFile((String)null);
-                                        var3.setForeground(Color.red);
-                                        var3.setText("成功生成增删改查->功能：" + CodeWindow.f);
-                                    } else {
-                                        var3.setForeground(Color.red);
-                                        var3.setText("表[" + CodeWindow.e + "] 在数据库中，不存在");
-                                        System.err.println(" ERROR ：   表 [ " + CodeWindow.e + " ] 在数据库中，不存在 ！请确认数据源配置是否配置正确、表名是否填写正确~ ");
-                                    }
-                                } catch (Exception var4) {
-                                    var3.setForeground(Color.red);
-                                    var3.setText(var4.getMessage());
-                                }
+        // 创建主面板
+        mainPanel = new JPanel(new BorderLayout());
+        mainPanel.setBorder(new EmptyBorder(15, 15, 15, 15));
 
-                            } else {
-                                var3.setForeground(Color.red);
-                                var3.setText("表名不能为空！");
-                            }
-                        } else {
-                            var3.setForeground(Color.red);
-                            var3.setText("描述不能为空！");
-                        }
-                    } else {
-                        var3.setForeground(Color.red);
-                        var3.setText("实体类名不能为空！");
-                    }
-                } else {
-                    var3.setForeground(Color.red);
-                    var3.setText("包名不能为空！");
+        // 创建输入面板
+        inputPanel = new JPanel(new GridBagLayout());
+        inputPanel.setBorder(BorderFactory.createTitledBorder("代码生成配置"));
+        GridBagConstraints gbc = new GridBagConstraints();
+        gbc.insets = new Insets(8, 8, 8, 8);
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+
+        // 添加组件
+        int row = 0;
+
+        // 包名
+        gbc.gridx = 0; gbc.gridy = row; gbc.weightx = 0.3; gbc.anchor = GridBagConstraints.WEST;
+        inputPanel.add(new JLabel("包名（小写）："), gbc);
+        gbc.gridx = 1; gbc.weightx = 0.7;
+        packageField = new JTextField(packageName, 20);
+        inputPanel.add(packageField, gbc);
+
+        // 实体类名
+        gbc.gridx = 0; gbc.gridy = ++row; gbc.weightx = 0.3;
+        inputPanel.add(new JLabel("实体类名（首字母大写）："), gbc);
+        gbc.gridx = 1; gbc.weightx = 0.7;
+        entityField = new JTextField(entityName, 20);
+        inputPanel.add(entityField, gbc);
+
+        // 表名
+        gbc.gridx = 0; gbc.gridy = ++row; gbc.weightx = 0.3;
+        inputPanel.add(new JLabel("表名："), gbc);
+        gbc.gridx = 1; gbc.weightx = 0.7;
+        tableField = new JTextField(tableName, 20);
+        inputPanel.add(tableField, gbc);
+
+        // 主键生成策略
+//        gbc.gridx = 0; gbc.gridy = ++row; gbc.weightx = 0.3;
+//        inputPanel.add(new JLabel("主键生成策略："), gbc);
+        gbc.gridx = 1; gbc.weightx = 0.7;
+        primaryKeyCombo = new JComboBox<>(primaryKeyOptions);
+        primaryKeyCombo.setSelectedItem(primaryKeyPolicy);
+        primaryKeyCombo.setEnabled(false); // 暂时禁用
+//        inputPanel.add(primaryKeyCombo, gbc);
+
+        // 序列名称（仅当选择sequence时可见）
+//        gbc.gridx = 0; gbc.gridy = ++row; gbc.weightx = 0.3;
+//        sequenceLabel = new JLabel("主键SEQUENCE：(Oracle序列名)");
+//        inputPanel.add(sequenceLabel, gbc);
+        gbc.gridx = 1; gbc.weightx = 0.7;
+        sequenceField = new JTextField(sequenceCode, 20);
+//        inputPanel.add(sequenceField, gbc);
+
+        // 功能描述
+        gbc.gridx = 0; gbc.gridy = ++row; gbc.weightx = 0.3;
+        inputPanel.add(new JLabel("功能描述："), gbc);
+        gbc.gridx = 1; gbc.weightx = 0.7;
+        descriptionField = new JTextField(description, 20);
+        inputPanel.add(descriptionField, gbc);
+
+        // 行字段数目
+//        gbc.gridx = 0; gbc.gridy = ++row; gbc.weightx = 0.3;
+//        inputPanel.add(new JLabel("行字段数目："), gbc);
+        gbc.gridx = 1; gbc.weightx = 0.7;
+        fieldRowField = new JTextField(fieldRowNum.toString(), 20);
+//        inputPanel.add(fieldRowField, gbc);
+
+        // 表单风格选择
+        gbc.gridx = 0; gbc.gridy = ++row; gbc.weightx = 0.3;
+        inputPanel.add(new JLabel("表单风格："), gbc);
+        gbc.gridx = 1; gbc.weightx = 0.7;
+        formStylePanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        drawerRadio = new JRadioButton("抽屉风格表单", true);
+        popupRadio = new JRadioButton("弹窗风格表单");
+        ButtonGroup styleGroup = new ButtonGroup();
+        styleGroup.add(drawerRadio);
+        styleGroup.add(popupRadio);
+        formStylePanel.add(drawerRadio);
+        formStylePanel.add(popupRadio);
+        inputPanel.add(formStylePanel, gbc);
+
+        // 生成选项
+        gbc.gridx = 0; gbc.gridy = ++row; gbc.gridwidth = 2; gbc.weightx = 1.0;
+        generateOptionsPanel = new JPanel(new GridLayout(2, 3, 10, 5));
+        generateOptionsPanel.setBorder(BorderFactory.createTitledBorder("生成选项"));
+
+        controlCheckbox = new JCheckBox("Controller", true);
+        vueCheckbox = new JCheckBox("Vue", true);
+        serviceCheckbox = new JCheckBox("Service", true);
+        mapperCheckbox = new JCheckBox("Mapper.xml", true);
+        daoCheckbox = new JCheckBox("Dao", true);
+        entityCheckbox = new JCheckBox("Entity", true);
+
+        generateOptionsPanel.add(controlCheckbox);
+        generateOptionsPanel.add(vueCheckbox);
+        generateOptionsPanel.add(serviceCheckbox);
+        generateOptionsPanel.add(mapperCheckbox);
+        generateOptionsPanel.add(daoCheckbox);
+        generateOptionsPanel.add(entityCheckbox);
+
+        inputPanel.add(generateOptionsPanel, gbc);
+
+        // 删除旧文件选项
+        gbc.gridx = 0; gbc.gridy = ++row; gbc.gridwidth = 2;
+        deleteOldFilesCheckbox = new JCheckBox("是否删除文件夹内旧文件", true);
+        inputPanel.add(deleteOldFilesCheckbox, gbc);
+
+        // 提示标签
+        gbc.gridx = 0; gbc.gridy = ++row; gbc.gridwidth = 2;
+        messageLabel = new JLabel(" ");
+        messageLabel.setForeground(Color.RED);
+        messageLabel.setFont(messageLabel.getFont().deriveFont(Font.BOLD));
+        inputPanel.add(messageLabel, gbc);
+
+        // 按钮面板
+        buttonPanel = new JPanel(new FlowLayout(FlowLayout.RIGHT, 15, 10));
+
+        // 生成代码按钮 - 使用更深的蓝色和白色文字
+        generateButton = new JButton("生成代码");
+        generateButton.setBackground(new Color(30, 100, 170));  // 更深的蓝色
+        generateButton.setForeground(Color.WHITE);
+        generateButton.setFocusPainted(false);
+        generateButton.setBorderPainted(false);  // 移除边框
+        generateButton.setContentAreaFilled(true);  // 确保填充背景
+        generateButton.setPreferredSize(new Dimension(100, 35));
+        generateButton.setFont(new Font("微软雅黑", Font.PLAIN, 14));  // 设置字体
+        generateButton.addActionListener(e -> generateCode());
+
+        // 退出按钮 - 使用更深的红色和白色文字
+        exitButton = new JButton("退出");
+        exitButton.setBackground(new Color(180, 30, 40));  // 更深的红色
+        exitButton.setForeground(Color.WHITE);
+        exitButton.setFocusPainted(false);
+        exitButton.setBorderPainted(false);  // 移除边框
+        exitButton.setContentAreaFilled(true);  // 确保填充背景
+        exitButton.setPreferredSize(new Dimension(100, 35));
+        exitButton.setFont(new Font("微软雅黑", Font.PLAIN, 14));  // 设置字体
+        exitButton.addActionListener(e -> System.exit(0));
+
+        buttonPanel.add(generateButton);
+        buttonPanel.add(exitButton);
+
+    }
+
+    private void setupLayout() {
+        mainPanel.add(inputPanel, BorderLayout.CENTER);
+        mainPanel.add(buttonPanel, BorderLayout.SOUTH);
+        setContentPane(mainPanel);
+    }
+
+    private void generateCode() {
+        // 验证输入
+        if (packageField.getText().trim().isEmpty()) {
+            showMessage("包名不能为空！", true);
+            return;
+        }
+        if (entityField.getText().trim().isEmpty()) {
+            showMessage("实体类名不能为空！", true);
+            return;
+        }
+        if (descriptionField.getText().trim().isEmpty()) {
+            showMessage("描述不能为空！", true);
+            return;
+        }
+        if (tableField.getText().trim().isEmpty()) {
+            showMessage("表名不能为空！", true);
+            return;
+        }
+
+        // 更新实例变量
+        this.packageName = packageField.getText().trim();
+        this.entityName = entityField.getText().trim();
+        this.description = descriptionField.getText().trim();
+        this.tableName = tableField.getText().trim();
+        this.primaryKeyPolicy = (String) primaryKeyCombo.getSelectedItem();
+
+        // 如果主键策略是sequence，验证序列名
+        if ("sequence".equals(this.primaryKeyPolicy)) {
+            if (sequenceField.getText().trim().isEmpty()) {
+                showMessage("主键生成策略为sequence时，序列号不能为空！", true);
+                return;
+            }
+            this.sequenceCode = sequenceField.getText().trim();
+        }
+
+        try {
+            // 尝试解析行字段数
+            try {
+                this.fieldRowNum = Integer.parseInt(fieldRowField.getText().trim());
+            } catch (NumberFormatException ex) {
+                showMessage("行字段数目必须是数字！", true);
+                return;
+            }
+
+            // 检查表是否存在
+            boolean tableExists = DbReadTableUtil.c(this.tableName);
+            if (tableExists) {
+                TableVo tableVo = new TableVo();
+                tableVo.setTableName(this.tableName);
+                tableVo.setPrimaryKeyPolicy(this.primaryKeyPolicy);
+                tableVo.setEntityPackage(this.packageName);
+                tableVo.setEntityName(this.entityName);
+                tableVo.setFieldRowNum(this.fieldRowNum);
+                tableVo.setSequenceCode(this.sequenceCode);
+                tableVo.setFtlDescription(this.description);
+
+                if (deleteOldFilesCheckbox.isSelected()) {
+                    String path = com.hanwei.core.codegenerator.util.a.a.f;
+                    // 生成前先删除文件夹里所有已经生成过的文件
+                    org.apache.commons.io.FileUtils.cleanDirectory(new java.io.File(path));
                 }
+
+                new CodeGenerateOne(tableVo).generateCodeFile(null);
+                showMessage("成功生成增删改查->功能：" + this.description, false);
+            } else {
+                showMessage("表[" + this.tableName + "] 在数据库中，不存在", true);
+                System.err.println(" ERROR ：   表 [ " + this.tableName + " ] 在数据库中，不存在 ！请确认数据源配置是否配置正确、表名是否填写正确~ ");
             }
-        });
-        JButton var28 = new JButton("退出");
-        var28.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                CodeWindow.this.dispose();
-                System.exit(0);
-            }
-        });
-        var1.add(var27);
-        var1.add(var28);
-        this.setTitle("智威宇讯代码生成器[单表模型]");
-        this.setVisible(true);
-        this.setDefaultCloseOperation(3);
-        this.setSize(new Dimension(700, 400));
-        this.setResizable(false);
-        this.setLocationRelativeTo(this.getOwner());
+        } catch (Exception ex) {
+            showMessage(ex.getMessage(), true);
+        }
+    }
+
+    private void showMessage(String message, boolean isError) {
+        messageLabel.setText(message);
+        messageLabel.setForeground(isError ? Color.RED : new Color(0, 128, 0));
     }
 
     public static void main(String[] args) {
-        try {
-            (new CodeWindow()).pack();
-        } catch (Exception var2) {
-            System.out.println(var2.getMessage());
-        }
+        // 使用 SwingUtilities.invokeLater 确保在 EDT 中运行
+        SwingUtilities.invokeLater(() -> {
+            try {
+                // 尝试设置系统外观，但如果失败则继续运行
+                UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+            } catch (Exception e) {
+                System.out.println("警告：无法设置系统外观，使用默认外观");
+                e.printStackTrace();
+            }
 
+            CodeWindow window = new CodeWindow();
+            window.setVisible(true); // 确保窗体显示
+        });
     }
 }

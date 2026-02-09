@@ -1,5 +1,6 @@
 package com.hanwei.system.controller;
 
+import java.nio.charset.StandardCharsets;
 import java.util.Arrays;
 
 import java.io.IOException;
@@ -150,7 +151,7 @@ public class DictController extends BaseController<Dict, IDictService> {
 			 response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
 			 response.setCharacterEncoding("utf-8");
 			 // URLEncoder.encode可以防止中文乱码
-			 fileName = URLEncoder.encode(Optional.ofNullable(fileName).orElse("字典表"), "UTF-8").replaceAll("\\+", "%20");
+			 fileName = URLEncoder.encode(Optional.ofNullable(fileName).orElse("字典表"), StandardCharsets.UTF_8).replaceAll("\\+", "%20");
 			 response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName + ".xlsx");
 			 dictService.exportData(response.getOutputStream(), request.getParameterMap(), dict);
 			 return Result.OK("导出成功");

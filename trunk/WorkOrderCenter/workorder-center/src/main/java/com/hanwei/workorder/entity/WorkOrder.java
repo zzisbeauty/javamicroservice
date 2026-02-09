@@ -96,16 +96,19 @@ public class WorkOrder {
     @NotEmpty(message = "工单状态（待定／处理中／挂起／已解决／关闭）不能为空")
     @ExcelProperty("工单状态（待定／处理中／挂起／已解决／关闭）")
 	private String status;
-	/**是否回访（true-需回访，false-无需回访）*/
-    @Schema(description = "是否回访（true-需回访，false-无需回访）")
-    @NotEmpty(message = "是否回访（true-需回访，false-无需回访）不能为空")
-    @ExcelProperty("是否回访（true-需回访，false-无需回访）")
-	private Object isFollowUp;
+    /**是否回访（1-需回访，0-无需回访）*/
+    @Schema(description = "是否回访（1-需回访，0-无需回访）")
+    @ExcelProperty("是否回访（1-需回访，0-无需回访）")
+    private java.lang.String isFollowUp;
 	/**当前处理人*/
     @Schema(description = "当前处理人")
     @NotEmpty(message = "当前处理人不能为空")
     @ExcelProperty("当前处理人")
 	private String currentHandler;
+    /**当前处理人编号*/
+    @Schema(description = "当前处理人编号")
+    @ExcelProperty("当前处理人编号")
+    private String currentUserCode;
 	/**当前处理部门*/
     @Schema(description = "当前处理部门")
     @NotEmpty(message = "当前处理部门不能为空")
@@ -141,19 +144,26 @@ public class WorkOrder {
     @Schema(description = "经度")
     @NotEmpty(message = "经度不能为空")
     @ExcelProperty("经度")
-	private java.math.BigDecimal longitude;
+	private java.lang.String  longitude;
 	/**纬度*/
     @Schema(description = "纬度")
     @NotEmpty(message = "纬度不能为空")
     @ExcelProperty("纬度")
-	private java.math.BigDecimal latitude;
-	/**创建时间*/
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
+	private java.lang.String  latitude;
+
+
+
+//	/**创建时间*/
+//    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+//    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
+//    @Schema(description = "创建时间")
+//    @NotEmpty(message = "创建时间不能为空")
+//    @ExcelProperty("创建时间")
+//	private java.util.Date createTime;
+    /**创建时间*/
     @Schema(description = "创建时间")
-    @NotEmpty(message = "创建时间不能为空")
     @ExcelProperty("创建时间")
-	private java.util.Date createTime;
+    private java.util.Date createTime;
 	/**创建人ID*/
     @Schema(description = "创建人ID")
     @NotEmpty(message = "创建人ID不能为空")

@@ -1,6 +1,7 @@
 package com.hanwei.core.autoapi.service.impl;
 
 
+import cn.hutool.core.util.StrUtil;
 import cn.hutool.http.HttpUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
@@ -11,12 +12,12 @@ import com.hanwei.core.autoapi.bo.GateWayDeleteApiBO;
 import com.hanwei.core.autoapi.bo.RegisterBo;
 import com.hanwei.core.autoapi.service.IGateWayService;
 import com.hanwei.core.common.api.vo.Result;
+import com.hanwei.core.util.RedisUtil;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 
 /**
@@ -48,11 +49,46 @@ public class GateWayServiceImpl implements IGateWayService {
     private String env;
 
     /**
-     * 用户票
+     * 票
      */
-    @Value("${autoApi.ticket}")
     private String ticket;
 
+
+
+    /**
+     * 模拟登录获取票
+     */
+    private String getTicket() {
+        try {
+            if(StrUtil.isNotEmpty( ticket)){
+                return ticket;
+            }
+
+            //网关请求前缀
+            String url = "http://" + gatewayAddress + ":" + gatewayPort + "/403549338db2f283dc8e9065de815ec2" + env + "/";
+            Map param = new HashMap();
+            param.put("usercode", "fusionhubx");
+            param.put("password", "04e4f7a5f44eed26addbd6888fb6292eae86b3d6924eb3afe7ff41cece339f940c36fa2d7d12739fc1d4fa0692680bc5083692f0aaf9835cb60c4b3b4ff22aa439622fdfc18539eb9cbb061278e949c1bab5b93a2aee0287635fa947b9e150f13552261692e434290f1f28d24088ee6d");
+            param.put("devicetype", "desktop");
+            param.put("tenementId", "498521b4-9d3c-4b53-bad6-0d8b25731c3c");
+            String result = HttpUtil.createPost(url)
+                    .body(JSON.toJSONString( param))
+                    .execute()
+                    .body();
+            JSONObject jsonObject = JSON.parseObject(result);
+            String ticket = jsonObject.getJSONObject("result").getString("ticket");
+
+            return ticket;
+        }catch (Exception e){
+            e.printStackTrace();
+            log.error("获取票失败");
+            return null;
+        }
+    }
+
+    public static void main(String[] args){
+        System.out.println(new GateWayServiceImpl().getTicket());
+    }
 
     /**
      * 根据名称查询api类型
@@ -61,6 +97,10 @@ public class GateWayServiceImpl implements IGateWayService {
      */
     @Override
     public List<ApiKindBo> getApiKindTree() {
+        ticket = getTicket();
+        if(StrUtil.isEmpty( ticket)){
+            return null;
+        }
         List<ApiKindBo> apiKindBoList = null;
         try {
             //网关请求前缀
@@ -85,6 +125,10 @@ public class GateWayServiceImpl implements IGateWayService {
      */
     @Override
     public String saveApiKind(ApiKindBo apiKind) {
+        ticket = getTicket();
+        if(StrUtil.isEmpty( ticket)){
+            return null;
+        }
         try {
             //网关请求前缀
             String url = "http://" + gatewayAddress + ":" + gatewayPort + "/3b455636492b0458ee2f3802ea6d7104" + env + "/";
@@ -109,6 +153,10 @@ public class GateWayServiceImpl implements IGateWayService {
      */
     @Override
     public Boolean saveApiInfo(RegisterBo registerBo) {
+        ticket = getTicket();
+        if(StrUtil.isEmpty( ticket)){
+            return false;
+        }
         try {
             //网关请求前缀
             String url = "http://" + gatewayAddress + ":" + gatewayPort + "/e97ee90d448707ff966e058eb4f52a82" + env + "/";
@@ -133,6 +181,10 @@ public class GateWayServiceImpl implements IGateWayService {
      */
     @Override
     public Boolean deleteApiInfo(String apiSecret) {
+        ticket = getTicket();
+        if(StrUtil.isEmpty( ticket)){
+            return false;
+        }
         try {
             //网关请求前缀
             String url = "http://" + gatewayAddress + ":" + gatewayPort + "/12aff7ba7390848f1b48a953e1d5556f" + env + "/";

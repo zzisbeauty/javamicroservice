@@ -9,12 +9,12 @@ import com.alibaba.excel.support.ExcelTypeEnum;
 import com.alibaba.excel.util.ListUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.hanwei.core.base.QueryGenerator;
-import com.hanwei.core.common.api.CommonAPI;
-import com.hanwei.core.common.api.vo.Result;
 import com.hanwei.attachment.entity.Attachment;
 import com.hanwei.attachment.mapper.AttachmentMapper;
 import com.hanwei.attachment.service.IAttachmentService;
+import com.hanwei.core.base.QueryGenerator;
+import com.hanwei.core.common.api.CommonAPI;
+import com.hanwei.core.common.api.vo.Result;
 import jakarta.servlet.ServletOutputStream;
 import lombok.SneakyThrows;
 import org.apache.commons.lang3.StringUtils;
@@ -71,8 +71,8 @@ public class AttachmentServiceImpl extends ServiceImpl<AttachmentMapper, Attachm
         QueryWrapper<Attachment> queryWrapper = QueryGenerator.initQueryWrapper(attachment, paramMap);
         List<Attachment> list = list(queryWrapper);
         //字典值转换
-//        List<JSON> listJson = commonApi.translateResultByDict(list);
-//        List<Attachment> result = listJson.stream().map(e -> JSON.toJavaObject(e,Attachment.class)).collect(Collectors.toList());
+        //List<JSON> listJson = commonApi.translateResultByDict(list);
+        //List<Attachment> result = listJson.stream().map(e -> JSON.toJavaObject(e,Attachment.class)).collect(Collectors.toList());
         String excelContent = null;
         ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
         EasyExcel.write(outputStream, Attachment.class).sheet("附件信息记录").doWrite(list);
@@ -149,7 +149,6 @@ public class AttachmentServiceImpl extends ServiceImpl<AttachmentMapper, Attachm
             ClassPathResource classPathResource = new ClassPathResource("template/Attachment.xlsx");
             // 方式一：路径
             String templateFileName = classPathResource.getFile().getPath();
-
             if (StringUtils.isNotBlank(templateFileName)) {
                 ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
                 ExcelWriter excelWriter = EasyExcel.write(outputStream).withTemplate(templateFileName).excelType(ExcelTypeEnum.XLSX).autoCloseStream(Boolean.FALSE).build();
@@ -162,4 +161,5 @@ public class AttachmentServiceImpl extends ServiceImpl<AttachmentMapper, Attachm
         }
         return excelContent;
     }
+
 }

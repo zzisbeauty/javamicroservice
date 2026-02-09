@@ -156,7 +156,6 @@ public class FeedBackController extends BaseController<FeedBack, IFeedBackServic
 	 /**
 	  * 支持文件流的情况下直接使用该方式
 	  * 文件流
-	  *
 	  * @param request
 	  * @param response
 	  * @param feedBack
@@ -171,7 +170,8 @@ public class FeedBackController extends BaseController<FeedBack, IFeedBackServic
 			 response.setContentType("application/vnd.openxmlformats-officedocument.spreadsheetml.sheet");
 			 response.setCharacterEncoding("utf-8");
 			 // URLEncoder.encode可以防止中文乱码
-			 fileName = URLEncoder.encode(Optional.ofNullable(fileName).orElse("工单后处理记录-回访信息"), "UTF-8").replaceAll("\\+", "%20");
+			 fileName = URLEncoder.encode(Optional.ofNullable(fileName).orElse("工单后处理记录-回访信息"), "UTF-8").
+					 replaceAll("\\+", "%20");
 			 response.setHeader("Content-disposition", "attachment;filename*=utf-8''" + fileName + ".xlsx");
 			 feedBackService.exportData(response.getOutputStream(), request.getParameterMap(), feedBack);
 			 return Result.OK("导出成功");
@@ -203,7 +203,6 @@ public class FeedBackController extends BaseController<FeedBack, IFeedBackServic
 
 	 /**
 	  * 通过excel导入数据
-	  *
 	  * @param file
 	  * @return
 	  */

@@ -81,48 +81,56 @@ public class ProblemInfo {
     @NotEmpty(message = "问题状态（开启／关闭）不能为空")
     @ExcelProperty("问题状态（开启／关闭）")
 	private java.lang.String status;
-	/**是否生成工单（true-已生成，false-未生成）*/
-    @Schema(description = "是否生成工单（true-已生成，false-未生成）")
-    @NotEmpty(message = "是否生成工单（true-已生成，false-未生成）不能为空")
-    @ExcelProperty("是否生成工单（true-已生成，false-未生成）")
-	private java.lang.Object isWorkOrderGenerated;
-	/**经度*/
+
+    /**是否生成工单（true-已生成，false-未生成）*/
+    @Schema(description = "是否生成工单（1-已生成，0-未生成）")
+    @ExcelProperty("是否生成工单（1-已生成，0-未生成）")
+    private java.lang.String isWorkOrderGenerated;
+
+    /**经度*/
     @Schema(description = "经度")
     @NotEmpty(message = "经度不能为空")
     @ExcelProperty("经度")
-	private java.math.BigDecimal longitude;
-	/**纬度*/
+    private java.lang.String longitude;
+
+    /**纬度*/
     @Schema(description = "纬度")
     @NotEmpty(message = "纬度不能为空")
     @ExcelProperty("纬度")
-	private java.math.BigDecimal latitude;
-	/**创建时间*/
-    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
-    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
+	private java.lang.String latitude;
+
+//    /**创建时间*/
+//    @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
+//    @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
+//    @Schema(description = "创建时间")
+//    @NotEmpty(message = "创建时间不能为空")
+//    @ExcelProperty("创建时间")
+//	private java.util.Date createTime;
+    /**创建时间*/
     @Schema(description = "创建时间")
-    @NotEmpty(message = "创建时间不能为空")
     @ExcelProperty("创建时间")
-	private java.util.Date createTime;
-	/**创建人ID*/
+    private java.util.Date createTime;
+	/**创建人ID*   @NotEmpty(message = "创建人ID不能为空")*/
     @Schema(description = "创建人ID")
-    @NotEmpty(message = "创建人ID不能为空")
     @ExcelProperty("创建人ID")
 	private java.lang.String createBy;
-	/**更新时间*/
+	/**更新时间   @NotEmpty(message = "更新时间不能为空")*/
     @DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss")
     @JsonFormat(timezone = "GMT+8",pattern = "yyyy-MM-dd HH:mm:ss")
     @Schema(description = "更新时间")
-    @NotEmpty(message = "更新时间不能为空")
     @ExcelProperty("更新时间")
 	private java.util.Date updateTime;
-	/**更新人ID*/
+	/**更新人ID  @NotEmpty(message = "更新人ID不能为空") */
     @Schema(description = "更新人ID")
-    @NotEmpty(message = "更新人ID不能为空")
     @ExcelProperty("更新人ID")
 	private java.lang.String updateBy;
-	/**租户ID*/
+	/**租户ID  @NotEmpty(message = "租户ID不能为空")*/
     @Schema(description = "租户ID")
-    @NotEmpty(message = "租户ID不能为空")
     @ExcelProperty("租户ID")
 	private java.lang.String tenementId;
+
+    /**附件ID列表（逗号分隔）  ------ 没用，但是保留*/
+    @Schema(description = "附件ID列表（逗号分隔）")
+    @ExcelProperty("附件ID列表")
+    private java.lang.String attachIds;
 }

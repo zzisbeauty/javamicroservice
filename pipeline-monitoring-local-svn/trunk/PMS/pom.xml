@@ -37,7 +37,7 @@
         <spring.cloud.version>2023.0.3</spring.cloud.version>
         <spring.cloud.alibaba.version>2023.0.1.0</spring.cloud.alibaba.version>
         <mybatis.plus.spring.boot3.starter.version>3.5.5</mybatis.plus.spring.boot3.starter.version>
-        <mybatis-plus-join.version>1.4.7</mybatis-plus-join.version>
+<!--        <mybatis-plus-join.version>1.4.7</mybatis-plus-join.version>-->
         <dynamic-datasource-spring-boot3-starter.version>4.2.0</dynamic-datasource-spring-boot3-starter.version>
         <knife4j-openapi3-jakarta-spring-boot-starter.version>4.3.0</knife4j-openapi3-jakarta-spring-boot-starter.version>
         <fastjson.version>1.2.83</fastjson.version>
@@ -78,10 +78,9 @@
 
         <dependency>
             <groupId>com.github.yulichang</groupId>
-            <artifactId>mybatis-plus-join</artifactId>
-            <version>${mybatis-plus-join.version}</version>
+            <artifactId>mybatis-plus-join-boot-starter</artifactId>
+            <version>1.5.5</version>
         </dependency>
-
         <!-- 动态数据源 -->
         <dependency>
             <groupId>com.baomidou</groupId>

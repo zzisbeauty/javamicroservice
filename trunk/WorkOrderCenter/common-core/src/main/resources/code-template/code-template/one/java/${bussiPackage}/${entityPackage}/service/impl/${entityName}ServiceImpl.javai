@@ -17,6 +17,7 @@ import ${bussiPackage}.${entityPackage}.mapper.${entityName}Mapper;
 import ${bussiPackage}.${entityPackage}.service.I${entityName}Service;
 import jakarta.servlet.ServletOutputStream;
 import lombok.SneakyThrows;
+import lombok.RequiredArgsConstructor;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -38,13 +39,13 @@ import java.util.Map;
  * @Version: V1.0
  */
 @Service
+@RequiredArgsConstructor
 public class ${entityName}ServiceImpl extends ServiceImpl<${entityName}Mapper, ${entityName}> implements I${entityName}Service {
 
     @Value("${'$'}{excel.batchSaveCount}")
     private Integer BATCH_SAVE_COUNT;
 
-    @Autowired
-    private CommonAPI commonApi;
+    private final CommonAPI commonApi;
 
     /**
      * 以下方法需要支持直接访问文件流（网关允许）

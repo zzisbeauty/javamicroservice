@@ -8,6 +8,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.hanwei.core.annotation.ApiParameter;
+import com.hanwei.core.common.ApiEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -55,6 +57,7 @@ public class ${entityName} {
     @Schema(description = "${po.filedComment}")
     @NotEmpty(message = "${po.filedComment}不能为空")
     @ExcelProperty("${po.filedComment}")
+    @ApiParameter(name = "${po.fieldName}", description = "${po.filedComment}", demovalue = "1", location = ApiEnum.PARAMETER_LOCATION_BODY)
 	private <#if po.fieldType=='java.sql.Blob'>byte[]<#else>${po.fieldType}</#if> ${po.fieldName};
 	</#list>
 }

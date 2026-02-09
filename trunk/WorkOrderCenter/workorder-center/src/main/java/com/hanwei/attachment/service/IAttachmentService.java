@@ -48,4 +48,10 @@ public interface IAttachmentService extends IService<Attachment> {
      * @return
      */
     String getImportTemplate();
+
+
+//    // 上传图片的方法 - 取消此接口，上传文件在前端完成
+//    Result<?> uploadImage(MultipartFile image);
+
+
 }

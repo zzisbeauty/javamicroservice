@@ -16,6 +16,20 @@ import java.util.Map;
  * @Version: V1.0
  */
 public interface IProblemWrokOrderRelationService extends IService<ProblemWrokOrderRelation> {
+    /**
+     * 保存问题工单关联关系
+     *
+     * @param problemId 问题ID
+     * @param problemNumber 问题编号
+     * @param workOrderId 工单ID
+     * @param workOrderNumber 工单编号
+     * @return 是否保存成功
+     */
+    boolean saveProblemWorkOrderRelation(String problemId, String problemNumber,
+                                         String workOrderId, String workOrderNumber);
+
+
+    // ============================================================================
 
     /**
      * 以下方法需要支持直接访问文件流（网关允许）

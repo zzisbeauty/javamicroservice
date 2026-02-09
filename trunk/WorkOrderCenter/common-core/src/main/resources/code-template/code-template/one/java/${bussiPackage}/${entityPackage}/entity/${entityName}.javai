@@ -1,5 +1,6 @@
 package ${bussiPackage}.${entityPackage}.entity;
 
+import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelIgnoreUnannotated;
 import com.alibaba.excel.annotation.ExcelProperty;
 import com.alibaba.excel.annotation.format.NumberFormat;
@@ -8,6 +9,8 @@ import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.hanwei.core.annotation.ApiParameter;
+import com.hanwei.core.common.ApiEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -53,8 +56,14 @@ public class ${entityName} {
   </#if>
   </#if>
     @Schema(description = "${po.filedComment}")
+    <#if po.fieldName == "id" || po.fieldName == "createBy" || po.fieldName == "createTime" || po.fieldName == "updateBy" || po.fieldName == "updateTime" || po.fieldName == "tenementId">
+    @ExcelIgnore
+    </#if>
+    <#if po.fieldName != "id" && po.fieldName != "createBy" && po.fieldName != "createTime" && po.fieldName != "updateBy" && po.fieldName != "updateTime" && po.fieldName != "tenementId">
     @NotEmpty(message = "${po.filedComment}不能为空")
     @ExcelProperty("${po.filedComment}")
+    @ApiParameter(name = "${po.fieldName}", description = "${po.filedComment}", demovalue = "1", location = ApiEnum.PARAMETER_LOCATION_BODY)
+    </#if>
 	private <#if po.fieldType=='java.sql.Blob'>byte[]<#else>${po.fieldType}</#if> ${po.fieldName};
 	</#list>
 }

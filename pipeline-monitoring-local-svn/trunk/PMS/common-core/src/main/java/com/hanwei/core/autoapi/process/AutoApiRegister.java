@@ -287,7 +287,7 @@ public class AutoApiRegister {
                             log.error(className.getBeanClassName() + "类获取API分类ID失败",e);
                             failMethodList.add(method.toGenericString());
                             failMethodCount++;
-                            continue;
+                            return;
                         }
                         apiRegisterBO.setFunctionId(functionId);
                     }

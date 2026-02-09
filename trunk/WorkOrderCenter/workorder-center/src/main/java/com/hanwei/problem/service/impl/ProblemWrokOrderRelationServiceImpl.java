@@ -10,7 +10,6 @@ import com.alibaba.excel.util.ListUtils;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hanwei.core.base.QueryGenerator;
-import com.hanwei.core.common.api.CommonAPI;
 import com.hanwei.core.common.api.vo.Result;
 import com.hanwei.problem.entity.ProblemWrokOrderRelation;
 import com.hanwei.problem.mapper.ProblemWrokOrderRelationMapper;
@@ -18,7 +17,6 @@ import com.hanwei.problem.service.IProblemWrokOrderRelationService;
 import jakarta.servlet.ServletOutputStream;
 import lombok.SneakyThrows;
 import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.io.ClassPathResource;
 import org.springframework.stereotype.Service;
@@ -43,8 +41,24 @@ public class ProblemWrokOrderRelationServiceImpl extends ServiceImpl<ProblemWrok
     @Value("${excel.batchSaveCount}")
     private Integer BATCH_SAVE_COUNT;
 
-    @Autowired
-    private CommonAPI commonApi;
+    @Override
+    public boolean saveProblemWorkOrderRelation(String problemId, String problemNumber,
+                                                String workOrderId, String workOrderNumber) {
+        try {
+            ProblemWrokOrderRelation relation = new ProblemWrokOrderRelation();
+            relation.setProblemId(problemId);
+            relation.setProblemNumber(problemNumber);
+            relation.setWorkOrderId(workOrderId);
+            relation.setWorkOrderNumber(workOrderNumber);
+            return this.save(relation);
+        } catch (Exception e) {
+            log.error("保存问题工单关联关系失败: " + e.getMessage(), e);
+            return false;
+        }
+    }
+
+
+
 
     /**
      * 以下方法需要支持直接访问文件流（网关允许）
