@@ -10,7 +10,6 @@ import com.alibaba.excel.support.ExcelTypeEnum;
 import com.alibaba.excel.util.ListUtils;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.conditions.query.LambdaQueryChainWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.hanwei.core.base.QueryGenerator;
 import com.hanwei.core.common.api.CommonAPI;
@@ -47,9 +46,6 @@ public class DictServiceImpl extends ServiceImpl<DictMapper, Dict> implements ID
 
     @Value("${excel.batchSaveCount:100}")
     private Integer BATCH_SAVE_COUNT;
-
-    @Autowired
-    private CommonAPI commonApi;
 
     @Autowired
     IDictItemService dictItemService;

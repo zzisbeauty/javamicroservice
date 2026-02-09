@@ -1,10 +1,8 @@
 package com.hanwei.workorder.mapper;
 
-import org.apache.ibatis.annotations.Param;
-import com.hanwei.workorder.entity.WorkOrder;
-import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import org.apache.ibatis.annotations.Mapper;
 import com.github.yulichang.base.MPJBaseMapper;
+import com.hanwei.workorder.entity.WorkOrder;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * @Description: 工单信息表

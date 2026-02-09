@@ -1,6 +1,5 @@
 package com.hanwei.workorder.controller;
 
-import com.alibaba.fastjson.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -8,7 +7,6 @@ import com.hanwei.core.annotation.AutoLog;
 import com.hanwei.core.base.BaseController;
 import com.hanwei.core.base.QueryGenerator;
 import com.hanwei.core.common.api.vo.Result;
-import com.hanwei.operateflow.service.IOperateFlowService;
 import com.hanwei.workorder.entity.WorkOrder;
 import com.hanwei.workorder.service.IWorkOrderService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -24,7 +22,6 @@ import java.io.IOException;
 import java.net.URLEncoder;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Map;
 import java.util.Optional;
 
 
@@ -41,7 +38,6 @@ import java.util.Optional;
 public class WorkOrderController extends BaseController<WorkOrder, IWorkOrderService> {
 	@Autowired
 	private IWorkOrderService workOrderService;
-
 
 
 	@AutoLog(value = "工单信息表-新增")

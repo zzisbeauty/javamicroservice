@@ -1,16 +1,11 @@
 package com.hanwei.problem.controller;
 
-import com.alibaba.fastjson.JSON;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.hanwei.core.annotation.AutoLog;
 import com.hanwei.core.base.BaseController;
-import com.hanwei.core.base.QueryGenerator;
 import com.hanwei.core.common.api.vo.Result;
-import com.hanwei.core.util.SmartHttpUtil;
-import com.hanwei.operateflow.service.IOperateFlowService;
 import com.hanwei.problem.entity.ProblemInfo;
+import com.hanwei.problem.entity.ProblemQueryBO;
 import com.hanwei.problem.service.IProblemInfoService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -23,9 +18,9 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.net.URLEncoder;
-import java.util.*;
-
-import com.hanwei.problem.entity.ProblemQueryBO;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Optional;
 
 
 /**
@@ -42,8 +37,6 @@ public class ProblemInfoController extends BaseController<ProblemInfo, IProblemI
 
 	@Autowired
 	private IProblemInfoService problemInfoService;
-	@Autowired
-	private IOperateFlowService operateFlowService;  // 添加这行注入
 
 
 //	/**
